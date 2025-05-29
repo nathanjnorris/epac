@@ -1,0 +1,3 @@
+"pacSelector","kind","owner","principalId","lastChange","category","displayName","id"
+"tenant01","Assignment(PolicySet-Builtin)","unknownOwner","1cc7c49c-3551-4de3-8e89-04cadb20c6a5","2025-03-21T04:57:36","","ASC Default (subscription: 432f2e9b-e36e-40b0-93f0-be3a9a69da6b)","/subscriptions/432f2e9b-e36e-40b0-93f0-be3a9a69da6b/providers/Microsoft.Authorization/policyAssignments/SecurityCenterBuiltIn"
+"tenant01","Assignment(Policy-Builtin)","unknownOwner","34e987e7-238a-44b4-8ca0-c52add3be92b","2025-05-29T03:30:53","","Subnets should be associated with a Network Security Group","/providers/Microsoft.Management/managementGroups/nathan/providers/Microsoft.Authorization/policyAssignments/c90eedfd7a8d4e57a8ea9568"

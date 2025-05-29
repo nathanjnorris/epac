@@ -1,0 +1,21 @@
+{
+  "pacOwnerId": "2dd523be-7939-42cc-8c37-277ba04c00d5",
+  "createMainCaf3Hierarchy": "No",
+  "initialTenantId": "f376c30e-79e5-47da-a45c-8356bd3667c3",
+  "initialTenantCloud": "AzureCloud",
+  "initialTenantIntermediateRoot": "nathan",
+  "mainTenantMainPacSelectorName": "tenant01",
+  "managedIdAssignmentLocation": "australiaeast",
+  "epacParent": "f376c30e-79e5-47da-a45c-8356bd3667c3",
+  "epacPrefix": "epac-",
+  "epacSuffix": "",
+  "EpacDevelopmentRoot": "epac-nathan",
+  "importPciDssPolicies": "No",
+  "importExistingPolicies": "Yes",
+  "importAdditionalPolicySets": "",
+  "importNist80053Policies": "No",
+  "pipelinePlatform": "GithubActions",
+  "codeExecutionType": "Module",
+  "pipelineFlow": "Github",
+  "pipelineCustomPath": "NotApplicable"
+}
