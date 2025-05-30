@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-exemption-schema.json",
+  "exemptions": [
+    {
+      "name": "5b88e82239c74b61bce0d786",
+      "displayName": "[Exemption] Subnets should be associated with a Network Security Group",
+      "description": "Testing EPaC",
+      "exemptionCategory": "Waiver",
+      "expiresOn": "2025-06-19T14:00:00Z",
+      "status": "active",
+      "expiresInDays": 20,
+      "scope": "/providers/Microsoft.Management/managementGroups/mg-Sandbox",
+      "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/nathan/providers/Microsoft.Authorization/policyAssignments/c90eedfd7a8d4e57a8ea9568",
+      "policyDefinitionReferenceIds": null,
+      "resourceSelectors": [],
+      "metadata": {
+        "deployedBy": null,
+        "epacMetadata": {}
+      },
+      "assignmentScopeValidation": null
+    }
+  ]
+}
