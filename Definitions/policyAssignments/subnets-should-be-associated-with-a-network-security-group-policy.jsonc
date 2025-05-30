@@ -22,11 +22,8 @@
   "overrides": [],
   "resourceSelectors": [],
   "scope": {
-    "tenant01": [
+    "tenant": [
       "/providers/Microsoft.Management/managementGroups/nathan"
-    ],
-    "epac-dev": [
-      "/providers/Microsoft.Management/managementGroups/epac-nathan"
     ]
   },
   "definitionVersion": "3.*.*"

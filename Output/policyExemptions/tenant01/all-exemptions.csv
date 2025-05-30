@@ -1,2 +1,0 @@
-name,displayName,description,exemptionCategory,expiresOn,status,expiresInDays,scope,policyAssignmentId,policyDefinitionReferenceIds,resourceSelectors,metadata,assignmentScopeValidation
-5b88e82239c74b61bce0d786,[Exemption] Subnets should be associated with a Network Security Group,Testing EPaC,Waiver,19/06/2025 2:00:00 PM,active,20,/providers/Microsoft.Management/managementGroups/mg-Sandbox,/providers/Microsoft.Management/managementGroups/nathan/providers/Microsoft.Authorization/policyAssignments/c90eedfd7a8d4e57a8ea9568,,,"{""deployedBy"":null,""epacMetadata"":{}}",

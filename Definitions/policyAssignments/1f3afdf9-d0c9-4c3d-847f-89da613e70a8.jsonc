@@ -8,7 +8,7 @@
     {
       "nodeName": "EPAC-Dev",
       "assignment": {
-        "name": "3459d48f5069",
+        "name": "4b677216fbe9",
         "displayName": "Microsoft cloud security benchmark",
         "description": "The Microsoft cloud security benchmark initiative represents the policies and controls implementing security recommendations defined in Microsoft cloud security benchmark, see https://aka.ms/azsecbm. This also serves as the Microsoft Defender for Cloud default policy initiative. You can directly assign this initiative, or manage its policies and compliance results within Microsoft Defender for Cloud."
       },
@@ -517,11 +517,8 @@
         "windowsWebServersShouldBeConfiguredToUseSecureCommunicationProtocolsMonitoringEffect": "AuditIfNotExists"
       },
       "scope": {
-        "tenant01": [
+        "tenant": [
           "/providers/Microsoft.Management/managementGroups/nathan"
-        ],
-        "epac-dev": [
-          "/providers/Microsoft.Management/managementGroups/epac-nathan"
         ]
       }
     }
