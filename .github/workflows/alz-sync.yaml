@@ -1,5 +1,9 @@
 name: Sync ALZ Policy Objects
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   REVIEWER: nathanjnorris # Change this to your GitHub username
   DefinitionsRootFolder: Definitions # Change this to the folder where your policy definitions are stored
