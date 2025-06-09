@@ -15,7 +15,9 @@
         "keepDfcSecurityAssignments": false,
         "excludedScopes": []
       },
-      "globalNotScopes": [],
+      "globalNotScopes": [
+        "/providers/Microsoft.Management/managementGroups/epac-nathan"
+      ],
       "managedIdentityLocation": "australiaeast"
     },
     {
