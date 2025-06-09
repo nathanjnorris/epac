@@ -1,0 +1,3 @@
+"pacSelector","kind","owner","principalId","lastChange","category","displayName","id"
+"tenant","Assignment(Policy-Builtin)","unknownOwner","34e987e7-238a-44b4-8ca0-c52add3be92b","2025-05-29T03:30:53","","Subnets should be associated with a Network Security Group","/providers/Microsoft.Management/managementGroups/nathan/providers/Microsoft.Authorization/policyAssignments/c90eedfd7a8d4e57a8ea9568"
+"tenant","Exemption(active-expiring-within-15-days)","unknownOwner","n/a","n/a","Waiver","[Exemption] Subnets should be associated with a Network Security Group","/providers/Microsoft.Management/managementGroups/mg-Sandbox/providers/Microsoft.Authorization/policyExemptions/5b88e82239c74b61bce0d786"
