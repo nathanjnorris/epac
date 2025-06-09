@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/root",
+  "definitionEntry": {
+    "policyId": "/providers/Microsoft.Authorization/policyDefinitions/e71308d3-144b-4262-b144-efdc3cc90517",
+    "displayName": "Subnets should be associated with a Network Security Group",
+    "nonComplianceMessages": [
+      {
+        "policyDefinitionReferenceId": null,
+        "message": "Subnets must be associated with a Network Security Group (NSG)"
+      }
+    ]
+  },
+  "assignment": {
+    "name": "c90eedfd7a8d4e57a8ea9568",
+    "displayName": "Subnets should be associated with a Network Security Group",
+    "description": ""
+  },
+  "metadata": {
+    "parameterScopes": {}
+  },
+  "overrides": [],
+  "resourceSelectors": [],
+  "scope": {
+    "tenant": [
+      "/providers/Microsoft.Management/managementGroups/nathan"
+    ]
+  },
+  "definitionVersion": "3.*.*"
+}
