@@ -1044,6 +1044,14 @@
         "tenant": [
           "/providers/Microsoft.Management/managementGroups/nathan"
         ]
+      },
+      "notScopes": {
+        "epac-dev": [
+          "/providers/Microsoft.Management/managementGroups/epac-mg-Sandbox"
+        ],
+        "tenant": [
+          "/providers/Microsoft.Management/managementGroups/mg-Sandbox"
+        ]
       }
     }
   ]
