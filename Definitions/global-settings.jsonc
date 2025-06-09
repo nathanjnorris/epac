@@ -26,7 +26,7 @@
       "tenantId": "f376c30e-79e5-47da-a45c-8356bd3667c3",
       "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/epac-nathan",
       "desiredState": {
-        "strategy": "ownedOnly",
+        "strategy": "full",
         "excludedPolicySetDefinitions": [],
         "excludedPolicyAssignments": [],
         "excludedPolicyDefinitions": [],
