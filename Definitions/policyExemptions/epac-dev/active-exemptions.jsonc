@@ -24,7 +24,7 @@
       "exemptionCategory": "Waiver",
       "expiresOn": "2025-06-21T14:00:00Z",
       "scope": "/providers/Microsoft.Management/managementGroups/epac-mg-Sandbox",
-      "policySetDefinitionName": "policySetDefinitions/Deploy-Private-DNS-Zones",
+      "policySetDefinitionName": "Deploy-Private-DNS-Zones",
       "policyDefinitionReferenceIds": null,
       "resourceSelectors": [],
       "metadata": {
