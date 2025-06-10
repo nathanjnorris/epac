@@ -12,7 +12,6 @@
       "policyDefinitionReferenceIds": null,
       "resourceSelectors": [],
       "metadata": {
-        "deployedBy": null,
         "epacMetadata": {}
       },
       "assignmentScopeValidation": null
@@ -28,7 +27,6 @@
       "policyDefinitionReferenceIds": null,
       "resourceSelectors": [],
       "metadata": {
-        "deployedBy": null,
         "epacMetadata": {}
       },
       "assignmentScopeValidation": null
