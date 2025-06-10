@@ -27,11 +27,11 @@ jobs:
       PAC_DEFINITIONS_FOLDER: ./Definitions
     secrets: inherit
 
-  tenant:
-    name: 'Remediate tenant environment'
-    uses: ./.github/workflows/remediate.yml
-    with:
-      pacEnvironmentSelector: tenant
-      planGitHubEnvironment: TENANT-REMEDIATE-POLICY
-      PAC_DEFINITIONS_FOLDER: ./Definitions
-    secrets: inherit
+  # tenant:
+  #   name: 'Remediate tenant environment'
+  #   uses: ./.github/workflows/remediate.yml
+  #   with:
+  #     pacEnvironmentSelector: tenant
+  #     planGitHubEnvironment: TENANT-REMEDIATE-POLICY
+  #     PAC_DEFINITIONS_FOLDER: ./Definitions
+  #   secrets: inherit
