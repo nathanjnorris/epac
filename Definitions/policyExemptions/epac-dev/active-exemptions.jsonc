@@ -16,6 +16,22 @@
         "epacMetadata": {}
       },
       "assignmentScopeValidation": null
+    },
+    {
+      "name": "epac-privatedns-exemption",
+      "displayName": "[Exemption] Deploy Private DNS",
+      "description": "Testing EPaC exemption definition",
+      "exemptionCategory": "Waiver",
+      "expiresOn": "2025-06-21T14:00:00Z",
+      "scope": "/providers/Microsoft.Management/managementGroups/epac-mg-Sandbox",
+      "policySetDefinitionName": "Deploy-Private-DNS-Zones",
+      "policyDefinitionReferenceIds": null,
+      "resourceSelectors": [],
+      "metadata": {
+        "deployedBy": null,
+        "epacMetadata": {}
+      },
+      "assignmentScopeValidation": null
     }
   ]
 }

@@ -1,1 +1,1 @@
-# epac
+# Enterprise Azure Policy as Code (EPAC)
