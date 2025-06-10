@@ -18,7 +18,7 @@
       "assignmentScopeValidation": null
     },
     {
-      "name": "epac-nsg-association",
+      "name": "epac-privatedns-exemption",
       "displayName": "[Exemption] Deploy Private DNS",
       "description": "Testing EPaC exemption definition",
       "exemptionCategory": "Waiver",
