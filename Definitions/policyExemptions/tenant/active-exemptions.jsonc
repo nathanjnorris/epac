@@ -6,7 +6,7 @@
       "displayName": "[Exemption] Subnets should be associated with a Network Security Group",
       "description": "Testing EPaC",
       "exemptionCategory": "Waiver",
-      "expiresOn": "2025-06-19T14:00:00Z",
+      "expiresOn": "2025-06-29T14:00:00Z",
       "scope": "/providers/Microsoft.Management/managementGroups/mg-Sandbox",
       "policyAssignmentId": "/providers/Microsoft.Management/managementGroups/nathan/providers/Microsoft.Authorization/policyAssignments/c90eedfd7a8d4e57a8ea9568",
       "policyDefinitionReferenceIds": null,
