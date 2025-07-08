@@ -1,0 +1,358 @@
+{
+  "managementGroupNameMappings": {
+    "management": {
+      "management_group_function": "Management",
+      "value": "/providers/Microsoft.Management/managementGroups/management"
+    },
+    "landingzones": {
+      "management_group_function": "Landing zones",
+      "value": "/providers/Microsoft.Management/managementGroups/landingzones"
+    },
+    "platform": {
+      "management_group_function": "Platform",
+      "value": "/providers/Microsoft.Management/managementGroups/platform"
+    },
+    "alz": {
+      "management_group_function": "Azure Landing Zones",
+      "value": "/providers/Microsoft.Management/managementGroups/alz"
+    },
+    "connectivity": {
+      "management_group_function": "Connectivity",
+      "value": "/providers/Microsoft.Management/managementGroups/connectivity"
+    },
+    "identity": {
+      "management_group_function": "Identity",
+      "value": "/providers/Microsoft.Management/managementGroups/identity"
+    }
+  },
+  "enforcementMode": "Default",
+  "defaultParameterValues": {
+    "amba_alz_user_assigned_managed_identity_name": [
+      {
+        "description": "The name of the user assigned managed identity for monitoring purposes.",
+        "parameters": {
+          "parameter_name": "ALZUserAssignedManagedIdentityName",
+          "value": "id-amba-alz-arg-reader-prod-001"
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_byo_action_group": [
+      {
+        "description": "The resource id of the action group, required if you intend to use an existing action group for monitoring purposes.",
+        "parameters": {
+          "parameter_name": "BYOActionGroup",
+          "value": []
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_logicapp_callback_url": [
+      {
+        "description": "The callback url of the logic app used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZLogicappCallbackUrl",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_resource_group_tags": [
+      {
+        "description": "The tags for the resource group for Azure Monitor Baseline Alerts.",
+        "parameters": {
+          "parameter_name": "ALZMonitorResourceGroupTags",
+          "value": {
+            "_deployed_by_alz_monitor": true
+          }
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Connectivity",
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Identity",
+          "Deploy-AMBA-KeyMgmt",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-NetworkChang",
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-Storage",
+          "Deploy-AMBA-SvcHealth",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_management_subscription_id": [
+      {
+        "description": "The subscription id where the user assigned managed identity will be created.",
+        "parameters": {
+          "parameter_name": "ALZManagementSubscriptionId",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_byo_alert_processing_rule": [
+      {
+        "description": "The resource id of the alert processing rule, required if you intend to use an existing alert processing rule for monitoring purposes.",
+        "parameters": {
+          "parameter_name": "BYOAlertProcessingRule",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_action_group_email": [
+      {
+        "description": "The email address(es) in the action group for alert notifications.",
+        "parameters": {
+          "parameter_name": "ALZMonitorActionGroupEmail",
+          "value": []
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "ama_mdfc_sql_workspace_region": [
+      {
+        "description": "The region short name (e.g. westus) that should be used for the Log Analytics workspace for the SQL MDFC deployment.",
+        "parameters": {
+          "parameter_name": "workspaceRegion",
+          "value": null
+        },
+        "policy_assignment_name": "Deploy-MDFC-DefSQL-AMA"
+      }
+    ],
+    "amba_alz_event_hub_resource_id": [
+      {
+        "description": "The resource id of the event hub used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZEventHubResourceId",
+          "value": []
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_arm_role_id": [
+      {
+        "description": "The ARM role id(s) in the action group for alert notifications.",
+        "parameters": {
+          "parameter_name": "ALZArmRoleId",
+          "value": []
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "mdfc_export_resource_group_location": [
+      {
+        "description": "Resource Group location for the export to Log Analytics workspace configuration",
+        "parameters": {
+          "parameter_name": "ascExportResourceGroupLocation",
+          "value": null
+        },
+        "policy_assignment_name": "Deploy-MDFC-Config-H224"
+      }
+    ],
+    "mdfc_email_security_contact": [
+      {
+        "description": "Email address for Microsoft Defender for Cloud alerts.",
+        "parameters": {
+          "parameter_name": "emailSecurityContact",
+          "value": null
+        },
+        "policy_assignment_name": "Deploy-MDFC-Config-H224"
+      }
+    ],
+    "amba_alz_function_trigger_url": [
+      {
+        "description": "The trigger url of the function used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZFunctionTriggerUrl",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_function_resource_id": [
+      {
+        "description": "The resource id of the function used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZFunctionResourceId",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_byo_user_assigned_managed_identity_id": [
+      {
+        "description": "The resource id of the user assigned managed identity, required if you intend to use an existing user assigned managed identity for monitoring purposes.",
+        "parameters": {
+          "parameter_name": "BYOUserAssignedManagedIdentityResourceId",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_logicapp_resource_id": [
+      {
+        "description": "The resource id of the logic app used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZLogicappResourceId",
+          "value": ""
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "amba_alz_webhook_service_uri": [
+      {
+        "description": "The service uri(s) of the webhook used for monitoring.",
+        "parameters": {
+          "parameter_name": "ALZWebhookServiceUri",
+          "value": []
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-SvcHealth"
+        ]
+      }
+    ],
+    "mdfc_export_resource_group_name": [
+      {
+        "description": "Resource Group name for the export to Log Analytics workspace configuration",
+        "parameters": {
+          "parameter_name": "ascExportResourceGroupName",
+          "value": null
+        },
+        "policy_assignment_name": "Deploy-MDFC-Config-H224"
+      }
+    ],
+    "amba_alz_disable_tag_values": [
+      {
+        "description": "Tag value(s) used to disable monitoring at the resource level.",
+        "parameters": {
+          "parameter_name": "ALZMonitorDisableTagValues",
+          "value": [
+            "true",
+            "Test",
+            "Dev",
+            "Sandbox"
+          ]
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Connectivity",
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Identity",
+          "Deploy-AMBA-KeyMgmt",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-NetworkChang",
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-Storage",
+          "Deploy-AMBA-SvcHealth",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_resource_group_name": [
+      {
+        "description": "The name of the resource group for Azure Monitor Baseline Alerts.",
+        "parameters": {
+          "parameter_name": "ALZMonitorResourceGroupName",
+          "value": "rg-amba-alz-prod-001"
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Connectivity",
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Identity",
+          "Deploy-AMBA-KeyMgmt",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-NetworkChang",
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-Storage",
+          "Deploy-AMBA-SvcHealth",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_resource_group_location": [
+      {
+        "description": "The region short name (e.g. `westus`) of the resource group that will be used for Azure Monitor Baseline Alerts.",
+        "parameters": {
+          "parameter_name": "ALZMonitorResourceGroupLocation",
+          "value": "eastus"
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Connectivity",
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Identity",
+          "Deploy-AMBA-KeyMgmt",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-NetworkChang",
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-Storage",
+          "Deploy-AMBA-SvcHealth",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ],
+    "amba_alz_disable_tag_name": [
+      {
+        "description": "Tag name used to disable monitoring at the resource level.",
+        "parameters": {
+          "parameter_name": "ALZMonitorDisableTagName",
+          "value": "MonitorDisable"
+        },
+        "policy_assignment_name": [
+          "Deploy-AMBA-Connectivity",
+          "Deploy-AMBA-HybridVM",
+          "Deploy-AMBA-Identity",
+          "Deploy-AMBA-KeyMgmt",
+          "Deploy-AMBA-Management",
+          "Deploy-AMBA-NetworkChang",
+          "Deploy-AMBA-Notification",
+          "Deploy-AMBA-Storage",
+          "Deploy-AMBA-SvcHealth",
+          "Deploy-AMBA-VM"
+        ]
+      }
+    ]
+  },
+  "enforceGuardrails": {
+    "deployments": []
+  }
+}

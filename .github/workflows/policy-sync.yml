@@ -1,0 +1,131 @@
+name: 'Sync ALZ and AMBA policies'
+
+on:
+  push:
+    branches:
+      - feature/**
+  schedule:
+    - cron: '0 14 * * SUN' # UTC 2:00 PM (0:00 AM AEST) every Sunday. 
+  workflow_call:
+
+jobs:
+  sync-policies:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Required Modules
+        uses: Azure/powershell@v2
+        with:
+          inlineScript: |
+            Install-Module EnterprisePolicyAsCode -Force
+          azPSVersion: "latest"
+
+      - name: Sync Policies
+        uses: azure/powershell@v2
+        with:
+          inlineScript: |
+            Sync-ALZPolicyFromLibrary -DefinitionsRootFolder .\Definitions -Type ALZ -PacEnvironmentSelector "epac-dev"
+            Sync-ALZPolicyFromLibrary -DefinitionsRootFolder .\Definitions -Type AMBA -PacEnvironmentSelector "epac-dev"
+          azPSVersion: "latest"
+
+      - name: Reset ALZ and AMBA policy assignment changes
+        shell: pwsh
+        run: |
+          # Handle both tracked changes and new untracked files in ALZ/AMBA policy assignment folders
+          Write-Host "Checking for changes to reset..."
+          
+          # Check what files have been modified and added
+          $trackedChanges = git diff --name-only
+          $untrackedFiles = git ls-files --others --exclude-standard
+          
+          Write-Host "Tracked changes:"
+          $trackedChanges | ForEach-Object { Write-Host "  $_" }
+          Write-Host "Untracked files:"
+          $untrackedFiles | ForEach-Object { Write-Host "  $_" }
+          
+          # Reset tracked changes in ALZ folder
+          $alzTrackedFiles = $trackedChanges | Where-Object { $_ -like "Definitions/policyAssignments/ALZ/*" }
+          if ($alzTrackedFiles) {
+            git checkout HEAD -- ./Definitions/policyAssignments/ALZ/
+            Write-Host "Reset ALZ tracked policy assignment changes"
+          }
+          
+          # Remove untracked ALZ files
+          $alzUntrackedFiles = $untrackedFiles | Where-Object { $_ -like "Definitions/policyAssignments/ALZ/*" }
+          if ($alzUntrackedFiles) {
+            $alzUntrackedFiles | ForEach-Object { 
+              Remove-Item $_ -Force
+              Write-Host "Removed untracked ALZ file: $_"
+            }
+          }
+          
+          # Reset tracked changes in AMBA folder  
+          $ambaTrackedFiles = $trackedChanges | Where-Object { $_ -like "Definitions/policyAssignments/AMBA/*" }
+          if ($ambaTrackedFiles) {
+            git checkout HEAD -- ./Definitions/policyAssignments/AMBA/
+            Write-Host "Reset AMBA tracked policy assignment changes"
+          }
+          
+          # Remove untracked AMBA files
+          $ambaUntrackedFiles = $untrackedFiles | Where-Object { $_ -like "Definitions/policyAssignments/AMBA/*" }
+          if ($ambaUntrackedFiles) {
+            $ambaUntrackedFiles | ForEach-Object { 
+              Remove-Item $_ -Force
+              Write-Host "Removed untracked AMBA file: $_"
+            }
+          }
+          
+          if (-not $alzTrackedFiles -and -not $alzUntrackedFiles) {
+            Write-Host "No ALZ policy assignment changes to reset"
+          }
+          if (-not $ambaTrackedFiles -and -not $ambaUntrackedFiles) {
+            Write-Host "No AMBA policy assignment changes to reset"
+          }
+          
+          Write-Host "Completed selective reset of policy assignment folders"
+
+      - name: Check for changes
+        id: check-changes
+        shell: pwsh
+        run: |
+          $changes = git diff --name-only
+          if ($changes) {
+            Write-Host "Changes detected:"
+            $changes | ForEach-Object { Write-Host "  $_" }
+            echo "has-changes=true" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Host "No changes to commit"
+            echo "has-changes=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Create Pull Request
+        if: steps.check-changes.outputs.has-changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update policies from ALZ/AMBA library sync'
+          title: 'Policy Library Sync - ${{ github.run_id }}'
+          body: |
+            ## Policy Library Sync
+            
+            This PR contains updates from the ALZ/AMBA policy library sync.
+            
+            **Note:** Changes to `./Definitions/policyAssignments/ALZ/` and `./Definitions/policyAssignments/AMBA/` are excluded from this PR but are maintained in the repository.
+            
+            **Included in this PR:**
+            - Policy definitions (`./Definitions/policyDefinitions/`)
+            - Policy set definitions (`./Definitions/policySetDefinitions/`)
+            - Other policy-related changes
+            
+            Please review the changes and merge when ready.
+            
+            Auto-generated by workflow run: ${{ github.run_id }}
+          branch: policy-sync-${{ github.run_id }}
+          base: main
+          delete-branch: true
