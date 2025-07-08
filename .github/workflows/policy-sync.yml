@@ -6,7 +6,7 @@ on:
       - feature/**
   schedule:
     - cron: '0 14 * * SUN' # UTC 2:00 PM (0:00 AM AEST) every Sunday. 
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   sync-policies:
