@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - feature/**
+      - policy-sync/*
     paths:
       - "Definitions/**"
       - ".github/**"
