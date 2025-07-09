@@ -11,7 +11,7 @@
       ],
       "category": "Automation",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.2.2"
+      "version": "1.2.0"
     },
     "mode": "All",
     "parameters": {
