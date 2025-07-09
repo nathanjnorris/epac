@@ -152,7 +152,7 @@ jobs:
           git add .
           
           # Commit the changes
-          git commit -m "fix: updated ALZ/AMBA policy (set) definitions after running `Sync-ALZPolicyFromLibrary`"
+          git commit -m "fix: updated ALZ/AMBA policy (set) definitions after running ``Sync-ALZPolicyFromLibrary``"
           
           Write-Host "Successfully committed all remaining changes"
 
