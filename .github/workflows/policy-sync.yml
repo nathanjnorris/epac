@@ -1,9 +1,6 @@
 name: 'Sync ALZ and AMBA policies'
 
 on:
-  push:
-    branches:
-      - feature/**
   schedule:
     - cron: '0 14 * * SUN' # UTC 2:00 PM (0:00 AM AEST) every Sunday. 
   workflow_dispatch:
