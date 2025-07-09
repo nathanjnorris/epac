@@ -115,6 +115,23 @@ jobs:
             echo "has-changes=false" >> $env:GITHUB_OUTPUT
           }
 
+      - name: Generate timestamp
+        id: timestamp
+        shell: pwsh
+        run: |
+          $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
+          $branchTimestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+          echo "value=$timestamp" >> $env:GITHUB_OUTPUT
+          echo "branch=$branchTimestamp" >> $env:GITHUB_OUTPUT
+
+      - name: Create and switch to new branch
+        if: steps.check-changes.outputs.has-changes == 'true'
+        shell: pwsh
+        run: |
+          $branchName = "policy-sync/${{ steps.timestamp.outputs.branch }}"
+          git checkout -b $branchName
+          Write-Host "Created and switched to branch: $branchName"
+
       - name: Stage and commit changes
         if: steps.check-changes.outputs.has-changes == 'true'
         shell: pwsh
@@ -130,21 +147,20 @@ jobs:
           
           Write-Host "Successfully committed all remaining changes"
 
-      - name: Generate timestamp
-        id: timestamp
+      - name: Push branch
+        if: steps.check-changes.outputs.has-changes == 'true'
         shell: pwsh
         run: |
-          $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
-          $branchTimestamp = Get-Date -Format "yyyyMMdd-HHmmss"
-          echo "value=$timestamp" >> $env:GITHUB_OUTPUT
-          echo "branch=$branchTimestamp" >> $env:GITHUB_OUTPUT
+          $branchName = "policy-sync/${{ steps.timestamp.outputs.branch }}"
+          git push origin $branchName
+          Write-Host "Pushed branch: $branchName"
+
 
       - name: Create Pull Request
         if: steps.check-changes.outputs.has-changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Update policies from ALZ/AMBA library sync'
           title: 'ALZ/AMBA Policy Library Sync - ${{ steps.timestamp.outputs.value }}'
           body: |
             ## ALZ/AMBA Policy Library Sync
