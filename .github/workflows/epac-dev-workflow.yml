@@ -2,13 +2,9 @@
 name: EPAC Dev Workflow
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+  push:
     branches:
-      - main
+      - feature/**
     paths:
       - "Definitions/**"
       - ".github/**"
