@@ -183,36 +183,16 @@ jobs:
           # Extract PR number from the output (URL format: https://github.com/owner/repo/pull/123)
           $prNumber = ($prOutput -split '/')[-1]
           Write-Host "PR Number: $prNumber"
-          
-          # Store PR number for next step
-          echo "pr-number=$prNumber" >> $env:GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger EPAC Dev Workflow
-        if: steps.check-changes.outputs.has-changes == 'true'
+      - name: Trigger EPaC Dev Workflow
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Determine the actor based on how this workflow was triggered
-            const actor = context.eventName === 'schedule' ? 'github-actions[bot]' : context.actor;
-            
-            console.log(`Triggering EPAC Dev Workflow as: ${actor}`);
-            console.log(`Event name: ${context.eventName}`);
-            console.log(`PR Number: ${{ steps.create-pull-request.outputs.pr-number }}`);
-            
-            await github.rest.actions.createWorkflowDispatch({
+            github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'epac-dev-workflow.yml',
-              ref: 'policy-sync/${{ steps.timestamp.outputs.branch }}',
-              inputs: {
-                'triggered-by': actor,
-                'pr-number': '${{ steps.create-pull-request.outputs.pr-number }}',
-                'branch-name': 'policy-sync/${{ steps.timestamp.outputs.branch }}',
-                'trigger-reason': context.eventName === 'schedule' ? 'Scheduled sync' : 'Manual trigger'
-              }
-            });
-            
-            console.log('EPAC Dev Workflow dispatch request sent successfully');
+              ref: 'main',
+            })
