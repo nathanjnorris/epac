@@ -210,4 +210,4 @@ jobs:
               ref: branchName
             });
             
-            console.log('EPAC Dev Workflow dispatch request sent successfully');
+            console.log('EPaC Dev Workflow dispatch request sent successfully');
