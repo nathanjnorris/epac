@@ -195,7 +195,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Determine the actor based on how this workflow was triggered
+            // Determine the PR that was created when this workflow was triggered
             const branchName = 'policy-sync/${{ steps.timestamp.outputs.branch }}';
             const prNumber = '${{ steps.create-pull-request.outputs.pr-number }}';
             
