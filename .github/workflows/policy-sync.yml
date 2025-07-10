@@ -199,7 +199,7 @@ jobs:
             const branchName = 'policy-sync/${{ steps.timestamp.outputs.branch }}';
             const prNumber = '${{ steps.create-pull-request.outputs.pr-number }}';
             
-            console.log(`Triggering EPAC Dev Workflow);
+            console.log(`Triggering EPAC Dev Workflow`);
             console.log(`PR Number: ${prNumber}`);
             console.log(`Branch: ${branchName}`);
             
