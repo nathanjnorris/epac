@@ -183,13 +183,10 @@ jobs:
           # Extract PR number from the output (URL format: https://github.com/owner/repo/pull/123)
           $prNumber = ($prOutput -split '/')[-1]
           Write-Host "PR Number: $prNumber"
-          
-          # Store PR number for next step
-          echo "pr-number=$prNumber" >> $env:GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger Workflow
+      - name: Trigger EPaC Dev Workflow
         uses: actions/github-script@v6
         with:
           script: |
