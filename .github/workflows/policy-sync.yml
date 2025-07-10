@@ -183,16 +183,31 @@ jobs:
           # Extract PR number from the output (URL format: https://github.com/owner/repo/pull/123)
           $prNumber = ($prOutput -split '/')[-1]
           Write-Host "PR Number: $prNumber"
+          
+          # Store PR number for next step
+          echo "pr-number=$prNumber" >> $env:GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Trigger EPaC Dev Workflow
+        if: steps.check-changes.outputs.has-changes == 'true'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.actions.createWorkflowDispatch({
+            // Determine the PR that was created when this workflow was triggered
+            const branchName = 'policy-sync/${{ steps.timestamp.outputs.branch }}';
+            const prNumber = '${{ steps.create-pull-request.outputs.pr-number }}';
+            
+            console.log(`Triggering EPAC Dev Workflow`);
+            console.log(`PR Number: ${prNumber}`);
+            console.log(`Branch: ${branchName}`);
+            
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'epac-dev-workflow.yml',
-              ref: 'main',
-            })
+              ref: branchName
+            });
+            
+            console.log('EPaC Dev Workflow dispatch request sent successfully');
