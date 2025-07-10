@@ -9,6 +9,21 @@ on:
       - "Definitions/**"
       - ".github/**"
   workflow_dispatch:
+    inputs:
+      triggered-by:
+        description: 'Who triggered this workflow'
+        required: false
+        default: 'manual'
+      pr-number:
+        description: 'PR number if triggered by policy sync'
+        required: false
+      branch-name:
+        description: 'Branch name if triggered by policy sync'
+        required: false
+      trigger-reason:
+        description: 'Reason for triggering'
+        required: false
+        default: 'Manual trigger'
 
 env:
   PAC_OUTPUT_FOLDER: ./Output

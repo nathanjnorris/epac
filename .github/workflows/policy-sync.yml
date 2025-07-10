@@ -189,13 +189,30 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger Workflow
+      - name: Trigger EPAC Dev Workflow
+        if: steps.check-changes.outputs.has-changes == 'true'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.actions.createWorkflowDispatch({
+            // Determine the actor based on how this workflow was triggered
+            const actor = context.eventName === 'schedule' ? 'github-actions[bot]' : context.actor;
+            
+            console.log(`Triggering EPAC Dev Workflow as: ${actor}`);
+            console.log(`Event name: ${context.eventName}`);
+            console.log(`PR Number: ${{ steps.create-pull-request.outputs.pr-number }}`);
+            
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'epac-dev-workflow.yml',
-              ref: 'main',
-            })
+              ref: 'policy-sync/${{ steps.timestamp.outputs.branch }}',
+              inputs: {
+                'triggered-by': actor,
+                'pr-number': '${{ steps.create-pull-request.outputs.pr-number }}',
+                'branch-name': 'policy-sync/${{ steps.timestamp.outputs.branch }}',
+                'trigger-reason': context.eventName === 'schedule' ? 'Scheduled sync' : 'Manual trigger'
+              }
+            });
+            
+            console.log('EPAC Dev Workflow dispatch request sent successfully');
