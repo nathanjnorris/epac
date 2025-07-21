@@ -55,16 +55,16 @@ jobs:
             New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
 
-      - name: Check for resource compliance at provided scope after remediation
-        id: post-remediation-scan
-        uses: azure/policy-compliance-scan@v0
-        if: ${{ inputs.complianceScopesResourceIds != '' }}
-        continue-on-error: true
-        with:
-          scopes: |
-            ${{ inputs.complianceScopesResourceIds }}
-          scopes-ignore: |
-            ${{ inputs.complianceScopesIgnoreResourceIds }}
+      # - name: Check for resource compliance at provided scope after remediation
+      #   id: post-remediation-scan
+      #   uses: azure/policy-compliance-scan@v0
+      #   if: ${{ inputs.complianceScopesResourceIds != '' }}
+      #   continue-on-error: true
+      #   with:
+      #     scopes: |
+      #       ${{ inputs.complianceScopesResourceIds }}
+      #     scopes-ignore: |
+      #       ${{ inputs.complianceScopesIgnoreResourceIds }}
             
       - name: Get Current Job Log URL
         uses: Tiryoh/gha-jobid-action@v1
