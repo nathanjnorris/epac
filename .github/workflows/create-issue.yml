@@ -246,7 +246,7 @@ jobs:
           gh issue create \
             --title "🚨 Policy Compliance: - Non-compliant resources require attention" \
             --body-file issue_body.md \
-            --label "policy-compliance,remediation,automated" \
+            --label "bug" \
           && echo "✅ GitHub issue created successfully" \
           || echo "❌ Failed to create GitHub issue"
         env:
