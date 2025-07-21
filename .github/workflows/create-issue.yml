@@ -7,10 +7,6 @@ on:
         description: 'The workflow run ID to extract compliance data from'
         required: true
         type: string
-      job_id:
-        description: 'The specific job ID to get logs from'
-        required: true
-        type: string
       pac_environment:
         description: 'PAC Environment (e.g., epac-dev)'
         required: true
@@ -35,37 +31,38 @@ jobs:
 
       - name: Download workflow logs
         run: |
-          echo "Using provided job ID: ${{ inputs.job_id }}"
-          echo "From workflow run ID: ${{ inputs.workflow_run_id }}"
+          echo "Downloading logs for workflow run ID: ${{ inputs.workflow_run_id }}"
           
-          # Download the job logs using the provided job ID
-          echo "Downloading logs for job ID: ${{ inputs.job_id }}"
+          # Download the workflow run logs using GitHub CLI
           gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            "/repos/${{ github.repository }}/actions/jobs/${{ inputs.job_id }}/logs" \
-            > job_logs.txt
+            "/repos/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }}/logs" \
+            > workflow_logs.zip
+          
+          # Extract the zip file
+          unzip -q workflow_logs.zip
+          
+          # Combine all log files into one for easier parsing
+          find . -name "*.txt" -type f -exec cat {} \; > combined_logs.txt
           
           echo "=== Log file info ==="
-          ls -la job_logs.txt
-          echo "Log file size: $(wc -c < job_logs.txt) bytes"
-          echo "Log file lines: $(wc -l < job_logs.txt) lines"
-          
-          echo "=== First 50 lines of logs ==="
-          head -50 job_logs.txt
+          ls -la combined_logs.txt
+          echo "Log file size: $(wc -c < combined_logs.txt) bytes"
+          echo "Log file lines: $(wc -l < combined_logs.txt) lines"
           
           echo "=== Searching for compliance-related content ==="
-          grep -n -i "compliance\|policy\|noncompliant" job_logs.txt | head -10 || echo "No compliance keywords found in preview"
+          grep -n -i "compliance\|policy\|noncompliant" combined_logs.txt | head -10 || echo "No compliance keywords found in preview"
         env:
           GH_TOKEN: ${{ github.token }}
 
       - name: Extract compliance table from logs
         id: extract-compliance
         run: |
-          echo "Searching for compliance table in job logs..."
+          echo "Searching for compliance table in workflow logs..."
           
           COMPLIANCE_TABLE=""
-          LOG_FILE="job_logs.txt"
+          LOG_FILE="combined_logs.txt"
           
           if [ ! -f "$LOG_FILE" ]; then
             echo "Log file not found: $LOG_FILE"
@@ -76,47 +73,113 @@ jobs:
           
           echo "Analyzing log file: $LOG_FILE ($(wc -l < $LOG_FILE) lines)"
           
-          # Method 1: Look for the full compliance table with ASCII borders
-          if grep -q "Policy compliance scan report\|╔.*╗" "$LOG_FILE"; then
+          # Method 1: Look for the full compliance table with specific start/end markers
+          # Search for table start patterns and extract until table end
+          if grep -q "Policy compliance scan report\|╔.*╗\|┌.*┐" "$LOG_FILE"; then
             echo "Found compliance table with borders"
             
-            # Extract from "Policy compliance scan report" to the end of the table
-            TABLE_CONTENT=$(sed -n '/Policy compliance scan report/,/╚.*╝/p' "$LOG_FILE")
+            # Find the start line of the compliance table
+            START_LINE=$(grep -n "Policy compliance scan report\|╔.*╗\|┌.*┐" "$LOG_FILE" | head -1 | cut -d: -f1)
             
-            if [ -n "$TABLE_CONTENT" ]; then
-              COMPLIANCE_TABLE="$TABLE_CONTENT"
-              echo "✅ Successfully extracted full compliance table"
-              echo "Table preview (first 10 lines):"
-              echo "$TABLE_CONTENT" | head -10
+            if [ -n "$START_LINE" ]; then
+              echo "Table starts at line: $START_LINE"
+              
+              # Extract from start line and look for end patterns
+              # Look for table end markers (bottom borders or next section)
+              TABLE_CONTENT=$(sed -n "${START_LINE},\$p" "$LOG_FILE" | \
+                sed '/╚.*╝\|└.*┘\|^[[:space:]]*$/{q;}' | \
+                head -100)
+              
+              # If we didn't find a clear end, try alternative approach
+              if [ $(echo "$TABLE_CONTENT" | wc -l) -lt 5 ]; then
+                # Extract a reasonable chunk after the start
+                TABLE_CONTENT=$(sed -n "${START_LINE},$((START_LINE + 50))p" "$LOG_FILE")
+              fi
+              
+              if [ -n "$TABLE_CONTENT" ]; then
+                COMPLIANCE_TABLE="$TABLE_CONTENT"
+                echo "✅ Successfully extracted compliance table ($(echo "$TABLE_CONTENT" | wc -l) lines)"
+                echo "Table preview (first 10 lines):"
+                echo "$TABLE_CONTENT" | head -10
+              fi
             fi
           fi
           
-          # Method 2: Look for NonCompliant entries if no table found
+          # Method 2: Look for NonCompliant entries with better context extraction
           if [ -z "$COMPLIANCE_TABLE" ] && grep -q "NonCompliant" "$LOG_FILE"; then
             echo "No full table found, extracting NonCompliant entries..."
             
-            # Get context around NonCompliant entries
-            COMPLIANCE_TABLE=$(grep -B 3 -A 3 "NonCompliant" "$LOG_FILE" | head -100)
+            # Find all lines with NonCompliant and extract surrounding context
+            NONCOMPLIANT_LINES=$(grep -n "NonCompliant" "$LOG_FILE" | cut -d: -f1)
             
-            if [ -n "$COMPLIANCE_TABLE" ]; then
-              echo "✅ Extracted NonCompliant entries with context"
-              echo "Context preview:"
-              echo "$COMPLIANCE_TABLE" | head -10
+            if [ -n "$NONCOMPLIANT_LINES" ]; then
+              echo "Found NonCompliant entries at lines: $(echo $NONCOMPLIANT_LINES | tr '\n' ' ')"
+              
+              # Extract context around each NonCompliant entry
+              TEMP_FILE=$(mktemp)
+              for line in $NONCOMPLIANT_LINES; do
+                START=$((line - 5))
+                END=$((line + 5))
+                [ $START -lt 1 ] && START=1
+                
+                echo "--- NonCompliant entry context (line $line) ---" >> "$TEMP_FILE"
+                sed -n "${START},${END}p" "$LOG_FILE" >> "$TEMP_FILE"
+                echo "" >> "$TEMP_FILE"
+              done
+              
+              COMPLIANCE_TABLE=$(cat "$TEMP_FILE")
+              rm "$TEMP_FILE"
+              
+              if [ -n "$COMPLIANCE_TABLE" ]; then
+                echo "✅ Extracted NonCompliant entries with context ($(echo "$COMPLIANCE_TABLE" | wc -l) lines)"
+                echo "Context preview:"
+                echo "$COMPLIANCE_TABLE" | head -15
+              fi
             fi
           fi
           
-          # Method 3: Look for any policy-related content as fallback
+          # Method 3: Look for policy scan results with pattern matching
           if [ -z "$COMPLIANCE_TABLE" ]; then
-            echo "No compliance table or NonCompliant entries found, searching for policy content..."
+            echo "No compliance table or NonCompliant entries found, searching for policy scan results..."
             
-            # Look for any policy scan results
-            POLICY_CONTENT=$(grep -i -A 10 -B 2 "policy.*scan\|compliance.*scan\|policy.*result" "$LOG_FILE" | head -50)
+            # Look for specific patterns that indicate policy scan output
+            SCAN_PATTERNS="policy.*scan.*result\|compliance.*assessment\|policy.*evaluation\|remediation.*summary"
             
-            if [ -n "$POLICY_CONTENT" ]; then
-              COMPLIANCE_TABLE="$POLICY_CONTENT"
-              echo "✅ Found policy-related content"
-              echo "Policy content preview:"
-              echo "$COMPLIANCE_TABLE" | head -5
+            if grep -q -i "$SCAN_PATTERNS" "$LOG_FILE"; then
+              echo "Found policy scan patterns"
+              
+              # Extract content around policy scan results
+              POLICY_CONTENT=$(grep -i -A 20 -B 5 "$SCAN_PATTERNS" "$LOG_FILE" | head -100)
+              
+              if [ -n "$POLICY_CONTENT" ]; then
+                COMPLIANCE_TABLE="$POLICY_CONTENT"
+                echo "✅ Found policy scan results ($(echo "$POLICY_CONTENT" | wc -l) lines)"
+                echo "Policy content preview:"
+                echo "$POLICY_CONTENT" | head -10
+              fi
+            fi
+          fi
+          
+          # Method 4: Fallback - search for any structured data with resource names
+          if [ -z "$COMPLIANCE_TABLE" ]; then
+            echo "No structured data found, looking for resource-related compliance info..."
+            
+            # Look for Azure resource patterns
+            RESOURCE_PATTERNS="/subscriptions/\|microsoft\.\|azure\|resource.*group"
+            
+            if grep -q -i "$RESOURCE_PATTERNS" "$LOG_FILE"; then
+              echo "Found Azure resource references"
+              
+              # Get lines with resource info and compliance context
+              RESOURCE_CONTENT=$(grep -i -B 2 -A 2 "$RESOURCE_PATTERNS" "$LOG_FILE" | \
+                grep -i -B 3 -A 3 "compliant\|policy\|violation" | head -50)
+              
+              if [ -n "$RESOURCE_CONTENT" ]; then
+                COMPLIANCE_TABLE="$RESOURCE_CONTENT"
+                echo "✅ Found resource compliance information"
+                echo "Resource content preview:"
+                echo "$RESOURCE_CONTENT" | head -10
+              fi
             fi
           fi
           
@@ -128,19 +191,26 @@ jobs:
               echo 'EOF'
             } >> $GITHUB_OUTPUT
             echo "has-compliance-data=true" >> $GITHUB_OUTPUT
-            echo "✅ Compliance data extracted and saved to output"
+            echo "✅ Compliance data extracted and saved to output ($(echo "$COMPLIANCE_TABLE" | wc -l) lines)"
           else
             echo "❌ No compliance data found in logs"
             echo "has-compliance-data=false" >> $GITHUB_OUTPUT
-            echo "compliance-data=No compliance data found in job logs" >> $GITHUB_OUTPUT
+            echo "compliance-data=No compliance data found in workflow logs" >> $GITHUB_OUTPUT
             
-            # For debugging, show what we do have
-            echo "=== Debug: Log content sample ==="
+            # Enhanced debugging for large logs
+            echo "=== Debug: Log content analysis ==="
             echo "Total lines: $(wc -l < $LOG_FILE)"
-            echo "Files lines containing 'policy':"
-            grep -n -i "policy" "$LOG_FILE" | head -5 || echo "No 'policy' found"
-            echo "Lines containing 'compliance':"
-            grep -n -i "compliance" "$LOG_FILE" | head -5 || echo "No 'compliance' found"
+            echo "Log file sample (every 1000th line):"
+            sed -n '1~1000p' "$LOG_FILE" | head -10
+            echo ""
+            echo "Lines containing 'policy' (first 10):"
+            grep -n -i "policy" "$LOG_FILE" | head -10 || echo "No 'policy' found"
+            echo ""
+            echo "Lines containing 'compliance' (first 10):"
+            grep -n -i "compliance" "$LOG_FILE" | head -10 || echo "No 'compliance' found"
+            echo ""
+            echo "Lines containing 'noncompliant' (first 10):"
+            grep -n -i "noncompliant" "$LOG_FILE" | head -10 || echo "No 'noncompliant' found"
           fi
 
       - name: Create GitHub issue
