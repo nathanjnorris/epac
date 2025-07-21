@@ -82,6 +82,13 @@ jobs:
           inlineScript: |
             New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
+          
+      - name: Logout from Azure PowerShell Session
+        uses: azure/powershell@v2
+        with:
+          inlineScript: |
+            Disconnect-AzAccount -Confirm:$false
+          azPSVersion: "latest"
 
       - name: Check for resource compliance at provided scope after remediation
         uses: azure/policy-compliance-scan@v0
