@@ -27,6 +27,7 @@ env:
 
 jobs:
   remediation:
+    name: Remediation
     runs-on: ubuntu-latest
     environment: ${{ inputs.planGitHubEnvironment }}
     steps:
