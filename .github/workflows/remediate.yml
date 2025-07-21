@@ -56,8 +56,9 @@ jobs:
       && !contains(needs.*.result,'cancelled')
     runs-on: ubuntu-latest
     environment: ${{ inputs.planGitHubEnvironment }}
+    outputs:
+      post-remediation-report: ${{ steps.extract-post-remediation-table.outputs.compliance-table }}
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -82,7 +83,7 @@ jobs:
           inlineScript: |
             New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
-          
+
       - name: Logout from Azure PowerShell Session
         uses: azure/powershell@v2
         with:
@@ -91,6 +92,7 @@ jobs:
           azPSVersion: "latest"
 
       - name: Check for resource compliance at provided scope after remediation
+        id: post-remediation-scan
         uses: azure/policy-compliance-scan@v0
         if: ${{ inputs.complianceScopesResourceIds != '' }}
         continue-on-error: true
@@ -99,35 +101,75 @@ jobs:
             ${{ inputs.complianceScopesResourceIds }}
           scopes-ignore: |
             ${{ inputs.complianceScopesIgnoreResourceIds }}
-          report-name: nonCompliantResourcesAfterRemediation
 
-      - name: Detect non-compliance CSV output
-        id: detectCSV
+      - name: Extract post-remediation compliance table
+        id: extract-post-remediation-table
+        if: ${{ inputs.complianceScopesResourceIds != '' }}
         run: |
-          Write-Host "Checking for CSV file..."
-          if (Test-Path ".\nonCompliantResourcesAfterRemediation.csv") {
-            $fileSize = (Get-Item ".\nonCompliantResourcesAfterRemediation.csv").Length
-            Write-Host "CSV file found. Size: $fileSize bytes"
-            if ($fileSize -gt 0) {
-              Write-Host "CSV file has content, setting output to yes"
-              echo "nonCompliantResourcesAfterRemediation=yes" >> $env:GITHUB_OUTPUT
-            } else {
-              Write-Host "CSV file is empty, setting output to no"
-              echo "nonCompliantResourcesAfterRemediation=no" >> $env:GITHUB_OUTPUT
-            }
-          }
-          else {
-            Write-Host "CSV file not found"
-            echo "::notice title=Detect non-compliance::CSV not found. All ${{ env.pacEnvironmentSelector }} resources are compliant!"
-            echo "nonCompliantResourcesAfterRemediation=no" >> $env:GITHUB_OUTPUT
-          }
-        shell: pwsh
+          # Get the step output and extract the table portion
+          FULL_OUTPUT="${{ steps.post-remediation-scan.outputs.stdout || steps.post-remediation-scan.outputs.result || '' }}"
+          
+          # Extract from "Policy compliance scan report" to the end of the table
+          if echo "$FULL_OUTPUT" | grep -q "Policy compliance scan report"; then
+            TABLE_CONTENT=$(echo "$FULL_OUTPUT" | sed -n '/Policy compliance scan report/,/╚.*╝/p')
+            
+            # Save to multiline output
+            {
+              echo 'compliance-table<<EOF'
+              echo "$TABLE_CONTENT"
+              echo 'EOF'
+            } >> $GITHUB_OUTPUT
+          else
+            echo "compliance-table=No compliance table found in post-remediation output" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
 
-      - name: Upload Compliance Report as Artifact
-        if: steps.detectCSV.outputs.nonCompliantResourcesAfterRemediation == 'yes'
-        uses: actions/upload-artifact@v4
-        with:
-          name: "${{ inputs.pacEnvironmentSelector }}-nonCompliantResourcesAfterRemediation"
-          path: nonCompliantResourcesAfterRemediation.csv
-          if-no-files-found: warn
-          retention-days: 30
+  post-remediation-compliance-comment:
+    needs: [remediation]
+    if: |
+      always()
+      && needs.remediation.result != 'cancelled'
+      && needs.remediation.outputs.post-remediation-report != ''
+      && needs.remediation.outputs.post-remediation-report != 'No compliance table found in post-remediation output'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create GitHub issue with post-remediation compliance results
+        run: |
+          # Create the issue body
+          cat << 'EOF' > issue_body.md
+          ## 📊 Post-Remediation Policy Compliance Results
+
+          **Environment:** ${{ inputs.pacEnvironmentSelector }}
+          **Workflow Run:** [${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          **Branch:** ${{ github.ref_name }}
+          **Triggered by:** ${{ github.actor }}
+
+          ### Compliance Scan Results
+
+          ```
+          ${{ needs.remediation.outputs.post-remediation-report }}
+          ```
+
+          ### ℹ️ About this report
+
+          This table shows the policy compliance status **after** remediation has been attempted.
+          **NonCompliant** resources still violate policy requirements and require manual intervention.
+
+          ---
+          **Automated issue created by workflow on:** $(date -u)
+          EOF
+
+          # Create the issue
+          gh issue create \
+            --title "🚨 Non-compliant resource(s) after remediation - ${{ inputs.pacEnvironmentSelector }} (Run #${{ github.run_number }})" \
+            --body-file issue_body.md \
+            --label "remediation,policy-compliance,automation,${{ inputs.pacEnvironmentSelector }}" \
+            --assignee "${{ github.actor }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
