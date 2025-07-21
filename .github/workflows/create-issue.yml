@@ -1,0 +1,206 @@
+name: 'Create Compliance Issue from Logs'
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow_run_id:
+        description: 'The workflow run ID to extract compliance data from'
+        required: true
+        type: string
+      job_id:
+        description: 'The specific job ID to get logs from'
+        required: true
+        type: string
+      pac_environment:
+        description: 'PAC Environment (e.g., epac-dev)'
+        required: true
+        type: string
+      triggered_by:
+        description: 'Who triggered the original workflow'
+        required: false
+        type: string
+        default: 'automation'
+
+permissions:
+  issues: write
+  contents: read
+  actions: read
+
+jobs:
+  create-compliance-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download workflow logs
+        run: |
+          echo "Using provided job ID: ${{ inputs.job_id }}"
+          echo "From workflow run ID: ${{ inputs.workflow_run_id }}"
+          
+          # Download the job logs using the provided job ID
+          echo "Downloading logs for job ID: ${{ inputs.job_id }}"
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/jobs/${{ inputs.job_id }}/logs" \
+            > job_logs.txt
+          
+          echo "=== Log file info ==="
+          ls -la job_logs.txt
+          echo "Log file size: $(wc -c < job_logs.txt) bytes"
+          echo "Log file lines: $(wc -l < job_logs.txt) lines"
+          
+          echo "=== First 50 lines of logs ==="
+          head -50 job_logs.txt
+          
+          echo "=== Searching for compliance-related content ==="
+          grep -n -i "compliance\|policy\|noncompliant" job_logs.txt | head -10 || echo "No compliance keywords found in preview"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Extract compliance table from logs
+        id: extract-compliance
+        run: |
+          echo "Searching for compliance table in job logs..."
+          
+          COMPLIANCE_TABLE=""
+          LOG_FILE="job_logs.txt"
+          
+          if [ ! -f "$LOG_FILE" ]; then
+            echo "Log file not found: $LOG_FILE"
+            echo "has-compliance-data=false" >> $GITHUB_OUTPUT
+            echo "compliance-data=Log file not found" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "Analyzing log file: $LOG_FILE ($(wc -l < $LOG_FILE) lines)"
+          
+          # Method 1: Look for the full compliance table with ASCII borders
+          if grep -q "Policy compliance scan report\|╔.*╗" "$LOG_FILE"; then
+            echo "Found compliance table with borders"
+            
+            # Extract from "Policy compliance scan report" to the end of the table
+            TABLE_CONTENT=$(sed -n '/Policy compliance scan report/,/╚.*╝/p' "$LOG_FILE")
+            
+            if [ -n "$TABLE_CONTENT" ]; then
+              COMPLIANCE_TABLE="$TABLE_CONTENT"
+              echo "✅ Successfully extracted full compliance table"
+              echo "Table preview (first 10 lines):"
+              echo "$TABLE_CONTENT" | head -10
+            fi
+          fi
+          
+          # Method 2: Look for NonCompliant entries if no table found
+          if [ -z "$COMPLIANCE_TABLE" ] && grep -q "NonCompliant" "$LOG_FILE"; then
+            echo "No full table found, extracting NonCompliant entries..."
+            
+            # Get context around NonCompliant entries
+            COMPLIANCE_TABLE=$(grep -B 3 -A 3 "NonCompliant" "$LOG_FILE" | head -100)
+            
+            if [ -n "$COMPLIANCE_TABLE" ]; then
+              echo "✅ Extracted NonCompliant entries with context"
+              echo "Context preview:"
+              echo "$COMPLIANCE_TABLE" | head -10
+            fi
+          fi
+          
+          # Method 3: Look for any policy-related content as fallback
+          if [ -z "$COMPLIANCE_TABLE" ]; then
+            echo "No compliance table or NonCompliant entries found, searching for policy content..."
+            
+            # Look for any policy scan results
+            POLICY_CONTENT=$(grep -i -A 10 -B 2 "policy.*scan\|compliance.*scan\|policy.*result" "$LOG_FILE" | head -50)
+            
+            if [ -n "$POLICY_CONTENT" ]; then
+              COMPLIANCE_TABLE="$POLICY_CONTENT"
+              echo "✅ Found policy-related content"
+              echo "Policy content preview:"
+              echo "$COMPLIANCE_TABLE" | head -5
+            fi
+          fi
+          
+          # Save results
+          if [ -n "$COMPLIANCE_TABLE" ]; then
+            {
+              echo 'compliance-data<<EOF'
+              echo "$COMPLIANCE_TABLE"
+              echo 'EOF'
+            } >> $GITHUB_OUTPUT
+            echo "has-compliance-data=true" >> $GITHUB_OUTPUT
+            echo "✅ Compliance data extracted and saved to output"
+          else
+            echo "❌ No compliance data found in logs"
+            echo "has-compliance-data=false" >> $GITHUB_OUTPUT
+            echo "compliance-data=No compliance data found in job logs" >> $GITHUB_OUTPUT
+            
+            # For debugging, show what we do have
+            echo "=== Debug: Log content sample ==="
+            echo "Total lines: $(wc -l < $LOG_FILE)"
+            echo "Files lines containing 'policy':"
+            grep -n -i "policy" "$LOG_FILE" | head -5 || echo "No 'policy' found"
+            echo "Lines containing 'compliance':"
+            grep -n -i "compliance" "$LOG_FILE" | head -5 || echo "No 'compliance' found"
+          fi
+
+      - name: Create GitHub issue
+        if: steps.extract-compliance.outputs.has-compliance-data == 'true'
+        run: |
+          echo "Creating GitHub issue with compliance findings..."
+          
+          # Create the issue body
+          cat << 'EOF' > issue_body.md
+          ## 📊 Post-Remediation Policy Compliance Issues
+
+          **Environment:** ${{ inputs.pac_environment }}
+          **Source Workflow:** [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})
+          **Triggered by:** ${{ inputs.triggered_by }}
+          **Issue created:** $(date -u)
+
+          ### 🚨 Non-Compliant Resources Found
+
+          The following resources remain non-compliant after remediation attempts:
+
+          ```
+          ${{ steps.extract-compliance.outputs.compliance-data }}
+          ```
+
+          ### 📋 Next Steps
+
+          1. **Review the non-compliant resources** listed above
+          2. **Check if manual remediation** is required for these resources
+          3. **Verify policy definitions** are correctly configured
+          4. **Consider policy exemptions** if resources should be excluded
+          5. **Update resource configurations** to meet policy requirements
+
+          ### ℹ️ About This Issue
+
+          - This issue was automatically created from workflow logs
+          - Resources listed above failed automatic remediation
+          - Manual intervention may be required
+          - Close this issue once all compliance issues are resolved
+
+          ---
+          **Automated compliance tracking for ${{ inputs.pac_environment }}**
+          EOF
+
+          # Create the issue using GitHub CLI
+          gh issue create \
+            --title "🚨 Policy Compliance: ${{ inputs.pac_environment }} - Non-compliant resources require attention" \
+            --body-file issue_body.md \
+            --label "policy-compliance,remediation,${{ inputs.pac_environment }},automated" \
+            --assignee "${{ inputs.triggered_by }}" \
+          && echo "✅ GitHub issue created successfully" \
+          || echo "❌ Failed to create GitHub issue"
+
+      - name: Log summary
+        run: |
+          if [ "${{ steps.extract-compliance.outputs.has-compliance-data }}" == "true" ]; then
+            echo "✅ Successfully created compliance issue"
+            echo "📊 Found compliance data and created GitHub issue"
+          else
+            echo "ℹ️  No compliance issues found"
+            echo "🎉 All resources appear to be compliant!"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}

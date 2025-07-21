@@ -12,17 +12,24 @@ on:
       PAC_DEFINITIONS_FOLDER:
         required: true
         type: string
+      complianceScopesResourceIds:
+        required: false
+        type: string
+      complianceScopesIgnoreResourceIds:
+        required: false
+        type: string
 
 env:
   pacEnvironmentSelector: ${{ inputs.pacEnvironmentSelector }}
   PAC_DEFINITIONS_FOLDER: ${{ inputs.PAC_DEFINITIONS_FOLDER }}
+  complianceScopesResourceIds: ${{ inputs.complianceScopesResourceIds }}
+  complianceScopesIgnoreResourceIds: ${{ inputs.complianceScopesIgnoreResourceIds }}
 
 jobs:
   remediation:
     runs-on: ubuntu-latest
     environment: ${{ inputs.planGitHubEnvironment }}
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -45,5 +52,44 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: |
-            New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -Interactive $false -InformationAction Continue
+            New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
+
+      - name: Check for resource compliance at provided scope after remediation
+        id: post-remediation-scan
+        uses: azure/policy-compliance-scan@v0
+        if: ${{ inputs.complianceScopesResourceIds != '' }}
+        continue-on-error: true
+        with:
+          scopes: |
+            ${{ inputs.complianceScopesResourceIds }}
+          scopes-ignore: |
+            ${{ inputs.complianceScopesIgnoreResourceIds }}
+
+      - name: Dispatch compliance issue creation
+        if: ${{ inputs.complianceScopesResourceIds != '' }}
+        run: |
+          echo "Dispatching workflow to create compliance issue from logs..."
+          
+          # Wait a moment for logs to be available
+          sleep 10
+          
+          # Get the current job ID from the GitHub API
+          CURRENT_JOB_ID=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs" \
+            | jq -r '.jobs[] | select(.name == "remediation") | .id')
+          
+          echo "Current remediation job ID: $CURRENT_JOB_ID"
+          
+          # Dispatch the create-issue workflow with the current run ID and job ID
+          gh workflow run create-issue.yml \
+            -f workflow_run_id="${{ github.run_id }}" \
+            -f job_id="$CURRENT_JOB_ID" \
+            -f pac_environment="${{ inputs.pacEnvironmentSelector }}" \
+            -f triggered_by="${{ github.actor }}" \
+          && echo "✅ Successfully dispatched compliance issue creation workflow" \
+          || echo "❌ Failed to dispatch compliance issue creation workflow"
+        env:
+          GH_TOKEN: ${{ github.token }}
