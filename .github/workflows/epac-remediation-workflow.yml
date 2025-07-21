@@ -112,7 +112,7 @@ jobs:
           }
         shell: pwsh
 
-  epacDev:
+  epac-dev:
     name: 'Remediate epac-dev environment'
     needs: load-compliance-scopes
     uses: ./.github/workflows/remediate.yml
@@ -124,7 +124,7 @@ jobs:
       PAC_DEFINITIONS_FOLDER: ./Definitions
     secrets: inherit
 
-  epacProd:
+  epac-prod:
     name: 'Remediate tenant environment'
     needs: load-compliance-scopes
     uses: ./.github/workflows/remediate.yml

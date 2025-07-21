@@ -67,12 +67,12 @@ jobs:
       #     scopes-ignore: |
       #       ${{ inputs.complianceScopesIgnoreResourceIds }}
             
-      - name: Get Current Job Log ID
+      - name: Get current job ID
         uses: Tiryoh/gha-jobid-action@v1
-        id: jobs
+        id: job-log
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: "Remediation"
+          job_name: ${{ inputs.pacEnvironmentSelector }}
 
 
       - name: Dispatch compliance issue creation
@@ -86,7 +86,7 @@ jobs:
           # Dispatch the create-issue workflow with the current run ID and job ID
           gh workflow run create-issue.yml \
             -f workflow_run_id="${{ github.run_id }}" \
-            -f job_id="${{ steps.jobs.outputs.job_id }}" \
+            -f job_id="${{ steps.job-log.outputs.job_id }}" \
             -f pac_environment="${{ inputs.pacEnvironmentSelector }}" \
             -f triggered_by="${{ github.actor }}" \
           && echo "✅ Successfully dispatched compliance issue creation workflow" \
