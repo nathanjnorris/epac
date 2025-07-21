@@ -249,6 +249,8 @@ jobs:
             --label "policy-compliance,remediation,automated" \
           && echo "✅ GitHub issue created successfully" \
           || echo "❌ Failed to create GitHub issue"
+        env:
+            GH_TOKEN: ${{ github.token }}
 
       - name: Log summary
         run: |
@@ -259,5 +261,3 @@ jobs:
             echo "ℹ️  No compliance issues found"
             echo "🎉 All resources appear to be compliant!"
           fi
-        env:
-          GH_TOKEN: ${{ github.token }}
