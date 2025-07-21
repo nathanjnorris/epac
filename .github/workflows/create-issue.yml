@@ -7,15 +7,6 @@ on:
         description: 'The workflow run ID to extract compliance data from'
         required: true
         type: string
-      pac_environment:
-        description: 'PAC Environment (e.g., epac-dev)'
-        required: true
-        type: string
-      triggered_by:
-        description: 'Who triggered the original workflow'
-        required: false
-        type: string
-        default: 'automation'
 
 permissions:
   issues: write
@@ -222,9 +213,7 @@ jobs:
           cat << 'EOF' > issue_body.md
           ## 📊 Post-Remediation Policy Compliance Issues
 
-          **Environment:** ${{ inputs.pac_environment }}
           **Source Workflow:** [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})
-          **Triggered by:** ${{ inputs.triggered_by }}
           **Issue created:** $(date -u)
 
           ### 🚨 Non-Compliant Resources Found
@@ -251,15 +240,13 @@ jobs:
           - Close this issue once all compliance issues are resolved
 
           ---
-          **Automated compliance tracking for ${{ inputs.pac_environment }}**
           EOF
 
           # Create the issue using GitHub CLI
           gh issue create \
-            --title "🚨 Policy Compliance: ${{ inputs.pac_environment }} - Non-compliant resources require attention" \
+            --title "🚨 Policy Compliance: - Non-compliant resources require attention" \
             --body-file issue_body.md \
-            --label "policy-compliance,remediation,${{ inputs.pac_environment }},automated" \
-            --assignee "${{ inputs.triggered_by }}" \
+            --label "policy-compliance,remediation,automated" \
           && echo "✅ GitHub issue created successfully" \
           || echo "❌ Failed to create GitHub issue"
 

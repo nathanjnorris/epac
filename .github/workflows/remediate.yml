@@ -66,22 +66,3 @@ jobs:
             ${{ inputs.complianceScopesResourceIds }}
           scopes-ignore: |
             ${{ inputs.complianceScopesIgnoreResourceIds }}
-
-
-      - name: Dispatch compliance issue creation
-        if: ${{ inputs.complianceScopesResourceIds != '' }}
-        run: |
-          echo "Dispatching workflow to create compliance issue from logs..."
-          
-          # Wait a moment for logs to be available
-          sleep 60
-          
-          # Dispatch the create-issue workflow with the current run ID and job ID
-          gh workflow run create-issue.yml \
-            -f workflow_run_id="${{ github.run_id }}" \
-            -f pac_environment="${{ inputs.pacEnvironmentSelector }}" \
-            -f triggered_by="${{ github.actor }}" \
-          && echo "✅ Successfully dispatched compliance issue creation workflow" \
-          || echo "❌ Failed to dispatch compliance issue creation workflow"
-        env:
-          GH_TOKEN: ${{ github.token }}
