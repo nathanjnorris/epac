@@ -132,9 +132,6 @@ jobs:
       && needs.remediation.outputs.post-remediation-report != ''
       && needs.remediation.outputs.post-remediation-report != 'No compliance table found in post-remediation output'
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
