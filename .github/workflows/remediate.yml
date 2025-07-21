@@ -12,13 +12,48 @@ on:
       PAC_DEFINITIONS_FOLDER:
         required: true
         type: string
+      complianceScopesResourceIds:
+        required: false
+        type: string
+      complianceScopesIgnoreResourceIds:
+        required: false
+        type: string
 
 env:
   pacEnvironmentSelector: ${{ inputs.pacEnvironmentSelector }}
   PAC_DEFINITIONS_FOLDER: ${{ inputs.PAC_DEFINITIONS_FOLDER }}
+  complianceScopesResourceIds: ${{ inputs.complianceScopesResourceIds }}
+  complianceScopesIgnoreResourceIds: ${{ inputs.complianceScopesIgnoreResourceIds }}
 
 jobs:
+  assess-policy-compliance:    
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.planGitHubEnvironment }}
+    continue-on-error: true
+    if: ${{ inputs.complianceScopesResourceIds != '' }}
+    steps:  
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        allow-no-subscriptions: true
+      
+    - name: Check for resource compliance at provided scope before remediation 
+      uses: azure/policy-compliance-scan@v0
+      continue-on-error: true
+      with:
+        scopes: |
+          ${{ inputs.complianceScopesResourceIds }}
+        scopes-ignore: |
+          ${{ inputs.complianceScopesIgnoreResourceIds }}
+        skip-report: true
+
   remediation:
+    needs: [assess-policy-compliance]
+    if: | 
+      always()
+      && !contains(needs.*.result,'cancelled')
     runs-on: ubuntu-latest
     environment: ${{ inputs.planGitHubEnvironment }}
     steps:
@@ -45,5 +80,47 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: |
-            New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -Interactive $false -InformationAction Continue
+            New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
+
+      - name: Check for resource compliance at provided scope after remediation
+        uses: azure/policy-compliance-scan@v0
+        if: ${{ inputs.complianceScopesResourceIds != '' }}
+        continue-on-error: true
+        with:
+          scopes: |
+            ${{ inputs.complianceScopesResourceIds }}
+          scopes-ignore: |
+            ${{ inputs.complianceScopesIgnoreResourceIds }}
+          report-name: nonCompliantResourcesAfterRemediation
+
+      - name: Detect non-compliance CSV output
+        id: detectCSV
+        run: |
+          Write-Host "Checking for CSV file..."
+          if (Test-Path ".\nonCompliantResourcesAfterRemediation.csv") {
+            $fileSize = (Get-Item ".\nonCompliantResourcesAfterRemediation.csv").Length
+            Write-Host "CSV file found. Size: $fileSize bytes"
+            if ($fileSize -gt 0) {
+              Write-Host "CSV file has content, setting output to yes"
+              echo "nonCompliantResourcesAfterRemediation=yes" >> $env:GITHUB_OUTPUT
+            } else {
+              Write-Host "CSV file is empty, setting output to no"
+              echo "nonCompliantResourcesAfterRemediation=no" >> $env:GITHUB_OUTPUT
+            }
+          }
+          else {
+            Write-Host "CSV file not found"
+            echo "::notice title=Detect non-compliance::CSV not found. All ${{ env.pacEnvironmentSelector }} resources are compliant!"
+            echo "nonCompliantResourcesAfterRemediation=no" >> $env:GITHUB_OUTPUT
+          }
+        shell: pwsh
+
+      - name: Upload Compliance Report as Artifact
+        if: steps.detectCSV.outputs.nonCompliantResourcesAfterRemediation == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ inputs.pacEnvironmentSelector }}-nonCompliantResourcesAfterRemediation"
+          path: nonCompliantResourcesAfterRemediation.csv
+          if-no-files-found: warn
+          retention-days: 30

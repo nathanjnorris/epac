@@ -4,9 +4,14 @@ name: EPAC Remediation
 ## Change the cron job schedule according to the requirement
 # cron: '0 5,17 * * *' # UTC 5:00 AM daily, midnight and noon EST (might be useful for VMs that are not running 24/7)
 # cron: '0 5 * * 0' # UTC 5:00 AM on Sundays only, midnight EST (0=Sunday,1=Monday,2=Tuesday,3=Wednesday,4=Thursday,5=Friday,6=Saturday)
+
+# The reusable workflow that is called has also been updated to assess policy compliance at the provided scopes before and after remediation.
+# Update `data\compliance-assessment-scopes.yml` to utilise this feature.  
+# More info on the GitHub Action that is used to achieve this: https://github.com/Azure/policy-compliance-scan/blob/main/README.md
+
 on:
   schedule:
-    - cron: '0 5 * * *' # # UTC 5:00 AM daily, midnight EST
+    - cron: '0 18 * * *' # # UTC 6:00 PM daily, 4:00 AM AEST
   workflow_dispatch:
 
 env:
@@ -16,22 +21,116 @@ env:
 permissions:
   contents: read
   id-token: write
+  actions: write
 
 jobs:
+  load-compliance-scopes:
+    name: 'Load scopes to be assessed for policy compliance'
+    runs-on: ubuntu-latest
+    outputs:
+      epac-dev-scopes: ${{ steps.parseConfig.outputs.epac-dev-scopes }}
+      epac-dev-scopes-ignore: ${{ steps.parseConfig.outputs.epac-dev-scopes-ignore }}
+      tenant-scopes: ${{ steps.parseConfig.outputs.tenant-scopes }}
+      tenant-scopes-ignore: ${{ steps.parseConfig.outputs.tenant-scopes-ignore }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Parse compliance scan configuration
+        id: parseConfig
+        run: |
+          Install-Module -Name powershell-yaml -Force -AllowClobber
+          $configFile = "data/compliance-assessment-scopes.yml"
+          if (Test-Path $configFile) {
+            $config = Get-Content $configFile -Raw | ConvertFrom-Yaml
+            
+            # Parse epac-dev scopes
+            $epacDevConfig = $config["epac-dev"]
+            if ($epacDevConfig) {
+              $epacDevScopes = $epacDevConfig["scopes"]
+              $epacDevScopesIgnore = $epacDevConfig["scopes-ignore"]
+              
+              if ($epacDevScopes) {
+                $epacDevScopes = $epacDevScopes.Trim()
+                $delimiter = "EOF_SCOPES_$(Get-Random)"
+                Write-Output "epac-dev-scopes<<$delimiter" >> $env:GITHUB_OUTPUT
+                Write-Output $epacDevScopes >> $env:GITHUB_OUTPUT
+                Write-Output $delimiter >> $env:GITHUB_OUTPUT
+              } else {
+                Write-Output "epac-dev-scopes=" >> $env:GITHUB_OUTPUT
+              }
+              
+              if ($epacDevScopesIgnore) {
+                $epacDevScopesIgnore = $epacDevScopesIgnore.Trim()
+                $delimiter = "EOF_SCOPES_IGNORE_$(Get-Random)"
+                Write-Output "epac-dev-scopes-ignore<<$delimiter" >> $env:GITHUB_OUTPUT
+                Write-Output $epacDevScopesIgnore >> $env:GITHUB_OUTPUT
+                Write-Output $delimiter >> $env:GITHUB_OUTPUT
+              } else {
+                Write-Output "epac-dev-scopes-ignore=" >> $env:GITHUB_OUTPUT
+              }
+            } else {
+              Write-Output "epac-dev-scopes=" >> $env:GITHUB_OUTPUT
+              Write-Output "epac-dev-scopes-ignore=" >> $env:GITHUB_OUTPUT
+            }
+            
+            # Parse tenant scopes
+            $epacProdConfig = $config["tenant"]
+            if ($epacProdConfig) {
+              $epacProdScopes = $epacProdConfig["scopes"]
+              $epacProdScopesIgnore = $epacProdConfig["scopes-ignore"]
+              
+              if ($epacProdScopes) {
+                $epacProdScopes = $epacProdScopes.Trim()
+                $delimiter = "EOF_SCOPES_$(Get-Random)"
+                Write-Output "tenant-scopes<<$delimiter" >> $env:GITHUB_OUTPUT
+                Write-Output $epacProdScopes >> $env:GITHUB_OUTPUT
+                Write-Output $delimiter >> $env:GITHUB_OUTPUT
+              } else {
+                Write-Output "tenant-scopes=" >> $env:GITHUB_OUTPUT
+              }
+              
+              if ($epacProdScopesIgnore) {
+                $epacProdScopesIgnore = $epacProdScopesIgnore.Trim()
+                $delimiter = "EOF_SCOPES_IGNORE_$(Get-Random)"
+                Write-Output "tenant-scopes-ignore<<$delimiter" >> $env:GITHUB_OUTPUT
+                Write-Output $epacProdScopesIgnore >> $env:GITHUB_OUTPUT
+                Write-Output $delimiter >> $env:GITHUB_OUTPUT
+              } else {
+                Write-Output "tenant-scopes-ignore=" >> $env:GITHUB_OUTPUT
+              }
+            } else {
+              Write-Output "tenant-scopes=" >> $env:GITHUB_OUTPUT
+              Write-Output "tenant-scopes-ignore=" >> $env:GITHUB_OUTPUT
+            }
+          } else {
+            Write-Output "epac-dev-scopes=" >> $env:GITHUB_OUTPUT
+            Write-Output "epac-dev-scopes-ignore=" >> $env:GITHUB_OUTPUT
+            Write-Output "tenant-scopes=" >> $env:GITHUB_OUTPUT
+            Write-Output "tenant-scopes-ignore=" >> $env:GITHUB_OUTPUT
+          }
+        shell: pwsh
+
   epacDev:
     name: 'Remediate epac-dev environment'
+    needs: load-compliance-scopes
     uses: ./.github/workflows/remediate.yml
     with:
       pacEnvironmentSelector: epac-dev
       planGitHubEnvironment: EPAC-DEV
+      complianceScopesResourceIds: ${{ needs.load-compliance-scopes.outputs.epac-dev-scopes }}
+      complianceScopesIgnoreResourceIds: ${{ needs.load-compliance-scopes.outputs.epac-dev-scopes-ignore }}
       PAC_DEFINITIONS_FOLDER: ./Definitions
     secrets: inherit
 
-  # tenant:
-  #   name: 'Remediate tenant environment'
-  #   uses: ./.github/workflows/remediate.yml
-  #   with:
-  #     pacEnvironmentSelector: tenant
-  #     planGitHubEnvironment: TENANT-REMEDIATE-POLICY
-  #     PAC_DEFINITIONS_FOLDER: ./Definitions
-  #   secrets: inherit
+  epacProd:
+    name: 'Remediate tenant environment'
+    needs: load-compliance-scopes
+    uses: ./.github/workflows/remediate.yml
+    with:
+      pacEnvironmentSelector: tenant
+      planGitHubEnvironment: TENANT-REMEDIATE-POLICY
+      complianceScopesResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes }}
+      complianceScopesIgnoreResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes-ignore }}
+      PAC_DEFINITIONS_FOLDER: ./Definitions
+    secrets: inherit

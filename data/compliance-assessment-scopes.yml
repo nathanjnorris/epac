@@ -1,0 +1,24 @@
+# You can trigger an assessment of policy compliance before and after remediation by editing this file. 
+# Provide the Resource Id of one or more resources, resource groups or subscriptions to be included (or ignored) in the of assessment. 
+# For example, if you wanted to check your policy compliance in a few scopes of `epac-dev` only, you could set this file to: 
+# ----------------------------------------------------------------------------------------------------------------------------------------------
+# epac-dev:
+#   scopes: |
+#     /subscriptions/yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
+#     /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/QA/
+#   scopes-ignore: /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/QA/providers/Microsoft.Web/sites/demoApp
+# epac-prod: 
+#   scopes:
+#   scopes-ignore: 
+# ----------------------------------------------------------------------------------------------------------------------------------------------
+# If there are any non-compliant resources after remediation, a CSV report on the compliance state of the scanned scope will be generated.
+# It will be available within each EPAC Remediation workflow run:
+# https://github.com/reecegroup/azure-enterprise-policy/actions/workflows/epac-remediation-workflow.yml
+
+
+epac-dev: 
+  scopes: /subscriptions/432f2e9b-e36e-40b0-93f0-be3a9a69da6b
+  scopes-ignore: /subscriptions/432f2e9b-e36e-40b0-93f0-be3a9a69da6b/resourceGroups/rg-tfstate
+tenant: 
+  scopes:
+  scopes-ignore:
