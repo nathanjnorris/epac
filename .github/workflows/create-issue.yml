@@ -144,7 +144,7 @@ jobs:
           gh issue create \
             --title "🚨 Policy Compliance Issues Detected" \
             --body-file issue_body.md \
-            --label "policy-compliance,automated" \
+            --label "PolicyCompliance" \
           && echo "✅ GitHub issue created successfully" \
           || echo "❌ Failed to create GitHub issue"
         env:
