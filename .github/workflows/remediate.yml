@@ -26,38 +26,9 @@ env:
   complianceScopesIgnoreResourceIds: ${{ inputs.complianceScopesIgnoreResourceIds }}
 
 jobs:
-  # assess-policy-compliance:    
-  #   runs-on: ubuntu-latest
-  #   environment: ${{ inputs.planGitHubEnvironment }}
-  #   continue-on-error: true
-  #   if: ${{ inputs.complianceScopesResourceIds != '' }}
-  #   steps:  
-  #   - name: Azure Login
-  #     uses: azure/login@v2
-  #     with:
-  #       client-id: ${{ secrets.AZURE_CLIENT_ID }}
-  #       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-  #       allow-no-subscriptions: true
-      
-  #   - name: Check for resource compliance at provided scope before remediation 
-  #     uses: azure/policy-compliance-scan@v0
-  #     continue-on-error: true
-  #     with:
-  #       scopes: |
-  #         ${{ inputs.complianceScopesResourceIds }}
-  #       scopes-ignore: |
-  #         ${{ inputs.complianceScopesIgnoreResourceIds }}
-  #       skip-report: true
-
   remediation:
-    # needs: [assess-policy-compliance]
-    # if: | 
-    #   always()
-    #   && !contains(needs.*.result,'cancelled')
     runs-on: ubuntu-latest
     environment: ${{ inputs.planGitHubEnvironment }}
-    outputs:
-      post-remediation-report: ${{ steps.extract-post-remediation-table.outputs.compliance-table }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -84,13 +55,6 @@ jobs:
             New-AzRemediationTasks -PacEnvironmentSelector ${{ env.pacEnvironmentSelector }} -OnlyCheckManagedAssignments -TestRun -Interactive $false -InformationAction Continue 
           azPSVersion: "latest"
 
-      - name: Logout from Azure PowerShell Session
-        uses: azure/powershell@v2
-        with:
-          inlineScript: |
-            Disconnect-AzAccount -Confirm:$false
-          azPSVersion: "latest"
-
       - name: Check for resource compliance at provided scope after remediation
         id: post-remediation-scan
         uses: azure/policy-compliance-scan@v0
@@ -102,71 +66,30 @@ jobs:
           scopes-ignore: |
             ${{ inputs.complianceScopesIgnoreResourceIds }}
 
-      - name: Extract post-remediation compliance table
-        id: extract-post-remediation-table
+      - name: Dispatch compliance issue creation
         if: ${{ inputs.complianceScopesResourceIds != '' }}
         run: |
-          # Get the step output and extract the table portion
-          FULL_OUTPUT="${{ steps.post-remediation-scan.outputs.stdout || steps.post-remediation-scan.outputs.result || '' }}"
+          echo "Dispatching workflow to create compliance issue from logs..."
           
-          # Extract from "Policy compliance scan report" to the end of the table
-          if echo "$FULL_OUTPUT" | grep -q "Policy compliance scan report"; then
-            TABLE_CONTENT=$(echo "$FULL_OUTPUT" | sed -n '/Policy compliance scan report/,/╚.*╝/p')
-            
-            # Save to multiline output
-            {
-              echo 'compliance-table<<EOF'
-              echo "$TABLE_CONTENT"
-              echo 'EOF'
-            } >> $GITHUB_OUTPUT
-          else
-            echo "compliance-table=No compliance table found in post-remediation output" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
-
-  post-remediation-compliance-comment:
-    needs: [remediation]
-    if: |
-      always()
-      && needs.remediation.result != 'cancelled'
-      && needs.remediation.outputs.post-remediation-report != ''
-      && needs.remediation.outputs.post-remediation-report != 'No compliance table found in post-remediation output'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Create GitHub issue with post-remediation compliance results
-        run: |
-          # Create the issue body
-          cat << 'EOF' > issue_body.md
-          ## 📊 Post-Remediation Policy Compliance Results
-
-          **Environment:** ${{ inputs.pacEnvironmentSelector }}
-          **Workflow Run:** [${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          **Branch:** ${{ github.ref_name }}
-          **Triggered by:** ${{ github.actor }}
-
-          ### Compliance Scan Results
-
-          ```
-          ${{ needs.remediation.outputs.post-remediation-report }}
-          ```
-
-          ### ℹ️ About this report
-
-          This table shows the policy compliance status **after** remediation has been attempted.
-          **NonCompliant** resources still violate policy requirements and require manual intervention.
-
-          ---
-          **Automated issue created by workflow on:** $(date -u)
-          EOF
-
-          # Create the issue
-          gh issue create \
-            --title "🚨 Non-compliant resource(s) after remediation - ${{ inputs.pacEnvironmentSelector }} (Run #${{ github.run_number }})" \
-            --body-file issue_body.md \
-            --label "remediation,policy-compliance,automation,${{ inputs.pacEnvironmentSelector }}" \
-            --assignee "${{ github.actor }}"
+          # Wait a moment for logs to be available
+          sleep 10
+          
+          # Get the current job ID from the GitHub API
+          CURRENT_JOB_ID=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs" \
+            | jq -r '.jobs[] | select(.name == "remediation") | .id')
+          
+          echo "Current remediation job ID: $CURRENT_JOB_ID"
+          
+          # Dispatch the create-issue workflow with the current run ID and job ID
+          gh workflow run create-issue.yml \
+            -f workflow_run_id="${{ github.run_id }}" \
+            -f job_id="$CURRENT_JOB_ID" \
+            -f pac_environment="${{ inputs.pacEnvironmentSelector }}" \
+            -f triggered_by="${{ github.actor }}" \
+          && echo "✅ Successfully dispatched compliance issue creation workflow" \
+          || echo "❌ Failed to dispatch compliance issue creation workflow"
         env:
           GH_TOKEN: ${{ github.token }}
