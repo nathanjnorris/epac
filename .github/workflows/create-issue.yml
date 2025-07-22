@@ -1,5 +1,4 @@
-name: 'Create Compliance Issue from Logs'
-
+name: 'Create an issue for non-compliant resources'
 on:
   workflow_dispatch:
     inputs:
@@ -57,12 +56,6 @@ jobs:
           echo "Log files (.txt) found:"
           find . -name "*.txt" -type f | sort
           echo ""
-          echo "Individual log file info:"
-          for log_file in $(find . -name "*.txt" -type f | sort); do
-            echo "  File: $log_file"
-            echo "    Size: $(wc -c < "$log_file") bytes"
-            echo "    Lines: $(wc -l < "$log_file") lines"
-          done
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -123,7 +116,7 @@ jobs:
                   # Add environment section to results with scope information
                   ENVIRONMENT_RESULTS="${ENVIRONMENT_RESULTS}
 
-          ### ${ENVIRONMENT}
+          ### Environment: \`${ENVIRONMENT}\`
           **Assessed Scopes:** \`${CURRENT_SCOPES}\`
           **Ignored Scopes:** \`${CURRENT_SCOPES_IGNORE}\`
                 
@@ -195,7 +188,7 @@ jobs:
 
           ---
           **This issue was automatically created - please close this issue once acknowledged and/or resolved.**
-          *Source workflow:* [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})  
+          Source workflow: [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})  
           EOF
 
           # Create the issue using GitHub CLI
