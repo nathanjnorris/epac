@@ -124,17 +124,17 @@ jobs:
       PAC_DEFINITIONS_FOLDER: ./Definitions
     secrets: inherit
 
-  # epac-prod:
-  #   name: 'Remediate tenant environment'
-  #   needs: load-compliance-scopes
-  #   uses: ./.github/workflows/remediate.yml
-  #   with:
-  #     pacEnvironmentSelector: tenant
-  #     planGitHubEnvironment: TENANT-REMEDIATE-POLICY
-  #     complianceScopesResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes }}
-  #     complianceScopesIgnoreResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes-ignore }}
-  #     PAC_DEFINITIONS_FOLDER: ./Definitions
-  #   secrets: inherit
+  epac-prod:
+    name: 'Remediate tenant environment'
+    needs: load-compliance-scopes
+    uses: ./.github/workflows/remediate.yml
+    with:
+      pacEnvironmentSelector: tenant
+      planGitHubEnvironment: TENANT-REMEDIATE-POLICY
+      complianceScopesResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes }}
+      complianceScopesIgnoreResourceIds: ${{ needs.load-compliance-scopes.outputs.tenant-scopes-ignore }}
+      PAC_DEFINITIONS_FOLDER: ./Definitions
+    secrets: inherit
   
   compliance-issues:
     name: Dispatch compliance issue creation

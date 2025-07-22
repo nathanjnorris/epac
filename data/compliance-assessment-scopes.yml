@@ -18,7 +18,7 @@
 
 epac-dev: 
   scopes: /subscriptions/432f2e9b-e36e-40b0-93f0-be3a9a69da6b
-  scopes-ignore: /subscriptions/432f2e9b-e36e-40b0-93f0-be3a9a69da6b/resourceGroups/rg-tfstate
+  scopes-ignore:
 tenant: 
-  scopes:
+  scopes: /subscriptions/a891feab-75df-4fec-9641-620af5f466d2
   scopes-ignore:
