@@ -34,16 +34,19 @@ jobs:
           # Extract the zip file
           unzip -q workflow_logs.zip
           
-          # Combine all log files into one for easier parsing
-          find . -name "*.txt" -type f -exec cat {} \; > combined_logs.txt
-          
-          echo "=== Log file info ==="
-          ls -la combined_logs.txt
-          echo "Log file size: $(wc -c < combined_logs.txt) bytes"
-          echo "Log file lines: $(wc -l < combined_logs.txt) lines"
-          
-          echo "=== Searching for compliance-related content ==="
-          grep -n -i "compliance\|policy\|noncompliant" combined_logs.txt | head -10 || echo "No compliance keywords found in preview"
+          echo "=== Contents of extracted zip file ==="
+          echo "All files in current directory:"
+          ls -la
+          echo ""
+          echo "Log files (.txt) found:"
+          find . -name "*.txt" -type f | sort
+          echo ""
+          echo "Individual log file info:"
+          for log_file in $(find . -name "*.txt" -type f | sort); do
+            echo "  File: $log_file"
+            echo "    Size: $(wc -c < "$log_file") bytes"
+            echo "    Lines: $(wc -l < "$log_file") lines"
+          done
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -140,12 +143,11 @@ jobs:
           
           # Create the issue body
           cat << 'EOF' > issue_body.md
-          ## 📊 Policy Compliance Issues
+          ## ⚠️ Non-compliant resources after remediation
 
           **Source Workflow:** [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})  
-          **Detected:** $(date -u '+%Y-%m-%d %H:%M UTC')
 
-          ### 🚨 Non-Compliant Resources by Environment
+          ### Resources by EPaC environment 
 
           The following environments have non-compliant resources after remediation:
 
