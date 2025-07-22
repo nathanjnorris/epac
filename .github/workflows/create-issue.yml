@@ -123,11 +123,9 @@ jobs:
                   # Add environment section to results with scope information
                   ENVIRONMENT_RESULTS="${ENVIRONMENT_RESULTS}
 
-          ## Environment: ${ENVIRONMENT}
-          
-          **Assessed Scopes:** ${CURRENT_SCOPES}
-
-          **Ignored Scopes:** ${CURRENT_SCOPES_IGNORE}
+          ### ${ENVIRONMENT}
+          **Assessed Scopes:** \`${CURRENT_SCOPES}\`
+          **Ignored Scopes:** \`${CURRENT_SCOPES_IGNORE}\`
                 
           \`\`\`
           ${CLEANED_TABLE}
@@ -191,52 +189,21 @@ jobs:
           cat << 'EOF' > issue_body.md
           ## ⚠️ Non-compliant resources after remediation
 
-          **Source Workflow:** [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})  
-
-          ### Resources by EPaC environment 
-
-          The following environments have non-compliant resources after remediation:
+          For each environment, at the scopes set in [./data/compliance-assessment-scopes.yml](${{ github.server_url }}/${{ github.repository }}/blob/main/data/compliance-assessment-scopes.yml), the following resources remain non-compliant after remediation: 
 
           ${{ steps.extract-compliance.outputs.compliance-data }}
 
-          ### 📋 Next Steps
-
-          1. **Review each environment** listed above for non-compliant resources
-          2. **Check environment-specific issues:**
-             - Verify policy assignments are correctly configured for each environment
-             - Check if resources require manual remediation
-             - Review environment-specific exclusions or exemptions
-          3. **Consider environment-specific actions:**
-             - Update resource configurations to meet policy requirements
-             - Apply policy exemptions if business-justified
-             - Verify policy definitions work correctly across all environments
-          4. **Monitor compliance status** after making changes
-
-          ### 🔍 Environment-Specific Guidance
-
-          - **epac-dev**: Development environment compliance issues may indicate policy testing needs
-          - **tenant**: Production tenant issues require immediate attention and careful remediation
-
           ---
-          *This issue was automatically created from workflow logs. Close when all compliance issues across all environments are resolved.*
+          **This issue was automatically created - please close this issue once acknowledged and/or resolved.**
+          *Source workflow:* [${{ inputs.workflow_run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ inputs.workflow_run_id }})  
           EOF
 
           # Create the issue using GitHub CLI
           gh issue create \
-            --title "🚨 Policy Compliance Issues Detected Across Environments" \
+            --title "Non-compliant resources after remediation" \
             --body-file issue_body.md \
             --label "PolicyCompliance" \
           && echo "✅ GitHub issue created successfully" \
           || echo "❌ Failed to create GitHub issue"
         env:
             GH_TOKEN: ${{ github.token }}
-
-      - name: Log summary
-        run: |
-          if [ "${{ steps.extract-compliance.outputs.has-compliance-data }}" == "true" ]; then
-            echo "✅ Successfully created multi-environment compliance issue"
-            echo "📊 Found compliance data across environments and created GitHub issue"
-          else
-            echo "ℹ️  No compliance issues found in any environment"
-            echo "🎉 All resources across all environments appear to be compliant!"
-          fi
