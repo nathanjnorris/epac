@@ -7,6 +7,22 @@ on:
         description: 'The workflow run ID to extract compliance data from'
         required: true
         type: string
+      epac_dev_scopes:
+        description: 'EPaC dev environment resource scopes that were assessed'
+        required: false
+        type: string
+      epac_dev_scopes_ignore:
+        description: 'EPaC dev environment resource scopes that were ignored'
+        required: false
+        type: string
+      tenant_scopes:
+        description: 'Tenant environment resource scopes that were assessed'
+        required: false
+        type: string
+      tenant_scopes_ignore:
+        description: 'Tenant environment resource scopes that were ignored'
+        required: false
+        type: string
 
 permissions:
   issues: write
@@ -58,6 +74,12 @@ jobs:
           COMPLIANCE_FOUND=false
           ENVIRONMENT_RESULTS=""
           
+          # Store scope information in variables
+          EPAC_DEV_SCOPES="${{ inputs.epac_dev_scopes }}"
+          EPAC_DEV_SCOPES_IGNORE="${{ inputs.epac_dev_scopes_ignore }}"
+          TENANT_SCOPES="${{ inputs.tenant_scopes }}"
+          TENANT_SCOPES_IGNORE="${{ inputs.tenant_scopes_ignore }}"
+          
           # Define the specific compliance check log files for each environment (with flexible step numbering)
           EPAC_DEV_PATTERN="./Remediate epac-dev environment _ Remediation/*_Check for resource compliance at provided scope after remediation.txt"
           TENANT_PATTERN="./Remediate tenant environment _ Remediation/*_Check for resource compliance at provided scope after remediation.txt"
@@ -69,6 +91,15 @@ jobs:
             
             echo "=== Analyzing $ENVIRONMENT environment compliance log ==="
             echo "Looking for files matching pattern: $PATTERN"
+            
+            # Set environment-specific scope variables
+            if [ "$ENVIRONMENT" = "epac-dev" ]; then
+              CURRENT_SCOPES="${EPAC_DEV_SCOPES:-No scopes configured}"
+              CURRENT_SCOPES_IGNORE="${EPAC_DEV_SCOPES_IGNORE:-No scopes ignored}"
+            else
+              CURRENT_SCOPES="${TENANT_SCOPES:-No scopes configured}"
+              CURRENT_SCOPES_IGNORE="${TENANT_SCOPES_IGNORE:-No scopes ignored}"
+            fi
             
             # Find the actual file using the pattern
             LOG_FILE=$(find . -path "$PATTERN" -type f | head -1)
@@ -89,11 +120,15 @@ jobs:
                   # Strip timestamps from each line (format: YYYY-MM-DDTHH:MM:SS.XXXXXXXZ)
                   CLEANED_TABLE=$(echo "$TABLE_CONTENT" | sed 's/^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\.[0-9]\{7\}Z //')
                   
-                  # Add environment section to results
+                  # Add environment section to results with scope information
                   ENVIRONMENT_RESULTS="${ENVIRONMENT_RESULTS}
 
           ## Environment: ${ENVIRONMENT}
+          
+          **Assessed Scopes:** ${CURRENT_SCOPES}
 
+          **Ignored Scopes:** ${CURRENT_SCOPES_IGNORE}
+                
           \`\`\`
           ${CLEANED_TABLE}
           \`\`\`

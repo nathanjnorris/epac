@@ -138,7 +138,7 @@ jobs:
   
   compliance-issues:
     name: Dispatch compliance issue creation
-    needs: epac-dev
+    needs: [epac-dev, epac-prod, load-compliance-scopes]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -151,9 +151,13 @@ jobs:
           # Wait a moment for logs to be available
           sleep 60
           
-          # Dispatch the create-issue workflow with the current run ID and job ID
+          # Dispatch the create-issue workflow with the current run ID and scope information
           gh workflow run create-issue.yml \
             -f workflow_run_id="${{ github.run_id }}" \
+            -f epac_dev_scopes="${{ needs.load-compliance-scopes.outputs.epac-dev-scopes }}" \
+            -f epac_dev_scopes_ignore="${{ needs.load-compliance-scopes.outputs.epac-dev-scopes-ignore }}" \
+            -f tenant_scopes="${{ needs.load-compliance-scopes.outputs.tenant-scopes }}" \
+            -f tenant_scopes_ignore="${{ needs.load-compliance-scopes.outputs.tenant-scopes-ignore }}" \
           && echo "✅ Successfully dispatched compliance issue creation workflow" \
           || echo "❌ Failed to dispatch compliance issue creation workflow"
         env:
