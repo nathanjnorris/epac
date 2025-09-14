@@ -11,7 +11,7 @@
       "category": "Encryption",
       "replacesPolicy": "Enforce-Encryption-CMK",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "parameters": {
       "ACRCmkEffect": {
@@ -490,8 +490,18 @@
           }
         },
         "groupNames": [],
-        "policyDefinitionReferenceId": "EncryptedVMDisksEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0961003e-5a0a-4549-abde-af6a37f2724d"
+        "policyDefinitionReferenceId": "EncryptedVMDisksEffectWin",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3dc5edcd-002d-444c-b216-e123bbfa37c0"
+      },
+      {
+        "parameters": {
+          "effect": {
+            "value": "[parameters('EncryptedVMDisksEffect')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "EncryptedVMDisksEffectLin",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ca88aadc-6e2b-416c-9de2-5a0f01d1693f"
       },
       {
         "parameters": {
