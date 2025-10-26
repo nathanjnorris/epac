@@ -51,8 +51,6 @@
         "type": "Array"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -77,6 +75,8 @@
         "policyDefinitionReferenceId": "SandboxDenyVnetPeering",
         "policyDefinitionName": "Deny-VNET-Peer-Cross-Sub"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
