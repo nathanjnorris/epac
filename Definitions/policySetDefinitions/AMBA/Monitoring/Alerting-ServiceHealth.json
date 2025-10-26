@@ -242,8 +242,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -464,6 +462,8 @@
         "policyDefinitionReferenceId": "ALZ_svcHlthSecAdvisory",
         "policyDefinitionName": "Deploy_activitylog_ServiceHealth_SecurityAdvisory"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
