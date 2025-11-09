@@ -83,8 +83,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -166,6 +164,8 @@
         "policyDefinitionReferenceId": "Modify-EventGrid-Topic-Public-Network-Access",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36ea4b4b-0f7f-4a54-89fa-ab18f555a172"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
