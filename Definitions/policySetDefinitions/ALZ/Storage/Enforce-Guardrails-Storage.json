@@ -224,8 +224,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -456,6 +454,8 @@
         "policyDefinitionReferenceId": "Modify-Storage-Account-PublicEndpoint",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a06d0189-92e8-4dba-b0c4-08d7669fce7d"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
