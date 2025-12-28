@@ -52,8 +52,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -95,6 +93,8 @@
         "policyDefinitionReferenceId": "AuditAzureHybridBenefitUnusedResourcesCostOptimization",
         "policyDefinitionName": "Audit-AzureHybridBenefit"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
