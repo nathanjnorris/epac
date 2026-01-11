@@ -28,8 +28,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -51,6 +49,8 @@
         "policyDefinitionReferenceId": "AuditTrustedLaunchEnabled",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c95b54ad-0614-4633-ab29-104b01235cbf"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

@@ -79,8 +79,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -128,6 +126,8 @@
         "policyDefinitionReferenceId": "SqlDbVulnerabilityAssessmentsDeploySqlSecurity",
         "policyDefinitionName": "Deploy-Sql-vulnerabilityAssessments_20230706"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
