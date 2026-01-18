@@ -164,8 +164,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -247,6 +245,8 @@
         "policyDefinitionReferenceId": "ALZ_Suppression_AlertProcessing_Rule",
         "policyDefinitionName": "Deploy_Suppression_AlertProcessing_Rule"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
