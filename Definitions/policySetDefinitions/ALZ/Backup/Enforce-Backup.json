@@ -52,8 +52,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -127,6 +125,8 @@
         "policyDefinitionReferenceId": "BackupRVault-MUA",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c7031eab-0fc0-4cd9-acd0-4497bd66d91a"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
