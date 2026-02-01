@@ -32,8 +32,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -55,6 +53,8 @@
         "policyDefinitionReferenceId": "Modify-Hostpool-PublicNetworkAccess",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0913ff-51e7-47b8-97bb-ea17127f7c8d"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
