@@ -51,8 +51,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -94,6 +92,8 @@
         "policyDefinitionReferenceId": "Deny-EH-Auth-Rules",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b278e460-7cfc-4451-8294-cccc40a940d7"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

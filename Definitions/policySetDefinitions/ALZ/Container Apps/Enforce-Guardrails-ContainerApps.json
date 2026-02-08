@@ -34,8 +34,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -57,6 +55,8 @@
         "policyDefinitionReferenceId": "Deny-ContainerApps-Managed-Identity",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b874ab2d-72dd-47f1-8cb5-4a306478a4e7"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
