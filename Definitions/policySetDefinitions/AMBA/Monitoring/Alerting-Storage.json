@@ -158,8 +158,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -220,6 +218,8 @@
         "policyDefinitionReferenceId": "ALZ_activitySADelete",
         "policyDefinitionName": "Deploy_activitylog_StorageAccount_Delete"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
