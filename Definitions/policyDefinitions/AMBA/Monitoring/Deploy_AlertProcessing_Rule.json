@@ -11,7 +11,7 @@
       ],
       "category": "Monitoring",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.5.1"
+      "version": "1.7.0"
     },
     "mode": "All",
     "parameters": {
@@ -30,6 +30,13 @@
         "type": "Array"
       },
       "ALZArmRoleId": {
+        "allowedValues": [
+          "Owner",
+          "Contributor",
+          "Reader",
+          "Monitoring Contributor",
+          "Monitoring Reader"
+        ],
         "defaultValue": [],
         "metadata": {
           "description": "Arm Built-in Role Ids for action group to send alerts to",
@@ -464,7 +471,7 @@
                       "count": "[length(parameters('ALZArmRoleId'))]",
                       "input": {
                         "name": "[concat('AlzARM-', indexOf(parameters('ALZArmRoleId'), parameters('ALZArmRoleId')[copyIndex('varArmRoleReceivers')]))]",
-                        "roleId": "[trim(parameters('ALZArmRoleId')[copyIndex('varArmRoleReceivers')])]",
+                        "roleId": "[variables('varArmRoleGuidMap')[trim(parameters('ALZArmRoleId')[copyIndex('varArmRoleReceivers')])]]",
                         "useCommonAlertSchema": true
                       },
                       "mode": "serial",
@@ -504,6 +511,13 @@
                       "name": "varAGIds"
                     }
                   ],
+                  "varArmRoleGuidMap": {
+                    "Contributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
+                    "Monitoring Contributor": "749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+                    "Monitoring Reader": "43d0d8ad-25c7-4714-9337-8ba259a9fe05",
+                    "Owner": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
+                    "Reader": "acdd72a7-3385-48ef-bd42-f606fba81ae7"
+                  },
                   "varAzureFunctionReceivers": [
                     {
                       "functionAppResourceId": "[if(empty(parameters('ALZFunctionResourceId')), null(), split(trim(parameters('ALZFunctionResourceId')),'/functions/')[0])]",
@@ -538,7 +552,7 @@
           "existenceScope": "resourceGroup",
           "resourceGroupName": "[parameters('ALZMonitorResourceGroupName')]",
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074"
           ],
           "type": "Microsoft.AlertsManagement/actionRules"
         },
