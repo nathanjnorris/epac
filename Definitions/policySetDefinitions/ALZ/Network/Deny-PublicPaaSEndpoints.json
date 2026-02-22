@@ -513,8 +513,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -966,6 +964,8 @@
         "policyDefinitionReferenceId": "Deny-Grafana-PublicNetworkAccess",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e8775d5a-73b7-4977-a39b-833ef0114628"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
