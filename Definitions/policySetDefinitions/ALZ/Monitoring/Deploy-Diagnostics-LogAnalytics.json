@@ -835,8 +835,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -1964,6 +1962,8 @@
         "policyDefinitionReferenceId": "VWanS2SVPNGWDeployDiagnosticLogDeployLogAnalytics",
         "policyDefinitionName": "Deploy-Diagnostics-VWanS2SVPNGW"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

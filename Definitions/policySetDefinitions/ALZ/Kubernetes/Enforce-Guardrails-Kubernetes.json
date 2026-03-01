@@ -12,7 +12,7 @@
       ],
       "category": "Kubernetes",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "1.2.0"
+      "version": "2.0.0"
     },
     "parameters": {
       "aksAllowedCapabilities": {
@@ -70,6 +70,15 @@
       "aksKms": {
         "allowedValues": [
           "Audit",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "type": "string"
+      },
+      "aksKubenetEffect": {
+        "allowedValues": [
+          "Audit",
+          "Deny",
           "Disabled"
         ],
         "defaultValue": "Audit",
@@ -174,8 +183,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -336,7 +343,19 @@
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Cni",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/46238e2f-3f6f-4589-9f3f-77bed4116e67"
+      },
+      {
+        "parameters": {
+          "effect": {
+            "value": "[parameters('aksKubenetEffect')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "Audit-AKS-Kubenet",
+        "policyDefinitionName": "Audit-AKS-kubenet"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
