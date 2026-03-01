@@ -12,7 +12,7 @@
       ],
       "category": "SQL",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "1.1.0"
+      "version": "2.0.0"
     },
     "parameters": {
       "modifySqlPublicNetworkAccess": {
@@ -50,8 +50,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -76,12 +74,32 @@
       {
         "parameters": {
           "effect": {
+            "value": "[parameters('sqlAadOnly')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "Deny-Sql-Entra-Required",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b3a22bc9-66de-45fb-98fa-00f5df42f41a"
+      },
+      {
+        "parameters": {
+          "effect": {
             "value": "[parameters('sqlManagedAadOnly')]"
           }
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Sql-Managed-Aad-Only",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/78215662-041e-49ed-a9dd-5385911b3a1f"
+      },
+      {
+        "parameters": {
+          "effect": {
+            "value": "[parameters('sqlManagedAadOnly')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "Deny-Sql-Managed-Entra-Required",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0c28c3fb-c244-42d5-a9bf-f35f2999577b"
       },
       {
         "parameters": {},
@@ -99,6 +117,8 @@
         "policyDefinitionReferenceId": "Modify-Sql-PublicNetworkAccess",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/28b0b1e5-17ba-4963-a7a4-5a1ab4400a0b"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

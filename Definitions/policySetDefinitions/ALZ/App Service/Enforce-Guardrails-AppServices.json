@@ -167,8 +167,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -360,6 +358,8 @@
         "policyDefinitionReferenceId": "Modify-AppService-App-Public-Network-Access",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c6c3e00e-d414-4ca4-914f-406699bb8eee"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
