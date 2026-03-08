@@ -93,8 +93,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -232,6 +230,8 @@
         "policyDefinitionReferenceId": "defenderForSqlMdsqlDcr",
         "policyDefinitionName": "Deploy-MDFC-SQL-DefenderSQL-DCR"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
