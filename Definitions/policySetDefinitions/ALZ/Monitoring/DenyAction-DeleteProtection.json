@@ -15,8 +15,6 @@
       "version": "1.1.0"
     },
     "parameters": {},
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {},
@@ -30,6 +28,8 @@
         "policyDefinitionReferenceId": "DenyActionDelete-ActivityLogSettings",
         "policyDefinitionName": "DenyAction-ActivityLogs"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
