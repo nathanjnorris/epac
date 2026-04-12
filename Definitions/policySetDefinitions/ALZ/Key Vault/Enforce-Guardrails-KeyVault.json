@@ -3,7 +3,7 @@
   "name": "Enforce-Guardrails-KeyVault",
   "properties": {
     "description": "Enforce recommended guardrails for Azure Key Vault.",
-    "displayName": "Enforce recommended guardrails for Azure Key Vault",
+    "displayName": "[Deprecated]: Enforce recommended guardrails for Azure Key Vault",
     "metadata": {
       "alzCloudEnvironments": [
         "AzureCloud",
@@ -11,8 +11,10 @@
         "AzureUSGovernment"
       ],
       "category": "Key Vault",
+      "deprecated": true,
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "2.2.0"
+      "supersededBy": "Enforce-Guardrails-KeyVault_20260203",
+      "version": "2.2.0-deprecated"
     },
     "parameters": {
       "effectKvCertLifetime": {
@@ -444,8 +446,6 @@
         "type": "integer"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -788,6 +788,8 @@
         "policyDefinitionReferenceId": "Deny-Kv-Cert-Expiration-Within-Specific-Number-Days",
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f772fb64-8e40-40ad-87bc-7706e1949427"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
