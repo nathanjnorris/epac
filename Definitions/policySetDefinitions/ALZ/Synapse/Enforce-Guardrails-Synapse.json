@@ -98,8 +98,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -109,7 +107,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-Synapse-Defender",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/951c1558-50a5-4ca3-abb6-a93e3e2367a6"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/951c1558-50a5-4ca3-abb6-a93e3e2367a6",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -119,7 +118,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Synapse-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c3624673-d2ff-48e0-b28c-5de1c6767c3c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c3624673-d2ff-48e0-b28c-5de1c6767c3c",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -129,7 +129,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Fw-Rules",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56fd377d-098c-4f02-8406-81eb055902b8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56fd377d-098c-4f02-8406-81eb055902b8",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -142,7 +143,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Tenant-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a003702-13d2-4679-941b-937e58c443f0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a003702-13d2-4679-941b-937e58c443f0",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -152,7 +154,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Data-Traffic",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3484ce98-c0c5-4c83-994b-c5ac24785218"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3484ce98-c0c5-4c83-994b-c5ac24785218",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -162,7 +165,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Managed-Vnet",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d9dbfa3-927b-4cf0-9d0f-08747f971650"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2d9dbfa3-927b-4cf0-9d0f-08747f971650",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -172,7 +176,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2158ddbe-fefa-408e-b43f-d4faef8ff3b8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2158ddbe-fefa-408e-b43f-d4faef8ff3b8",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -182,7 +187,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Synapse-Tls-Version",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8b5c654c-fb07-471b-aa8f-15fea733f140"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8b5c654c-fb07-471b-aa8f-15fea733f140",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -192,8 +198,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Synapse-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5c8cad01-ef30-4891-b230-652dadb4876a"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5c8cad01-ef30-4891-b230-652dadb4876a",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
