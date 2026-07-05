@@ -32,8 +32,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -43,7 +41,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Workspace-PublicNetworkAccess",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ce6ebf1d-0b94-4df9-9257-d8cacc238b4f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ce6ebf1d-0b94-4df9-9257-d8cacc238b4f",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -53,8 +52,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Hostpool-PublicNetworkAccess",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0913ff-51e7-47b8-97bb-ea17127f7c8d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0913ff-51e7-47b8-97bb-ea17127f7c8d",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
