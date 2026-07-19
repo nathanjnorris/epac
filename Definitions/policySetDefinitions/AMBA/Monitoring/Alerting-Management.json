@@ -11,7 +11,7 @@
       ],
       "category": "Monitoring",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.4.1"
+      "version": "1.6.0"
     },
     "parameters": {
       "AATotalJobAlertAlertState": {
@@ -136,7 +136,7 @@
       },
       "ALZMonitorResourceGroupTags": {
         "defaultValue": {
-          "_deployed_by_alz_monitor": true
+          "_deployed_by_amba": true
         },
         "metadata": {
           "description": "Tags to apply to the resource group",
@@ -145,7 +145,7 @@
         "type": "Object"
       },
       "ALZUserAssignedManagedIdentityName": {
-        "defaultValue": "id-AMBA-ARG-Reader-001",
+        "defaultValue": "id-amba-prod-001",
         "metadata": {
           "description": "The name of the user assigned managed identity to be created for monitoring purpose.",
           "displayName": "Name of the user assigned managed identity to be created."
@@ -472,8 +472,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -705,6 +703,8 @@
         "policyDefinitionReferenceId": "ALZ_activitySADelete",
         "policyDefinitionName": "Deploy_activitylog_StorageAccount_Delete"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
