@@ -79,8 +79,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -90,7 +88,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SqlDbTdeDeploySqlSecurity",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86a912f6-9a06-4e26-b447-11b16ba8659f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86a912f6-9a06-4e26-b447-11b16ba8659f",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -100,7 +99,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SqlDbSecurityAlertPoliciesDeploySqlSecurity",
-        "policyDefinitionName": "Deploy-Sql-SecurityAlertPolicies"
+        "policyDefinitionName": "Deploy-Sql-SecurityAlertPolicies",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -110,7 +110,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SqlDbAuditingSettingsDeploySqlSecurity",
-        "policyDefinitionName": "Deploy-Sql-AuditingSettings"
+        "policyDefinitionName": "Deploy-Sql-AuditingSettings",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -126,8 +127,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SqlDbVulnerabilityAssessmentsDeploySqlSecurity",
-        "policyDefinitionName": "Deploy-Sql-vulnerabilityAssessments_20230706"
+        "policyDefinitionName": "Deploy-Sql-vulnerabilityAssessments_20230706",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
