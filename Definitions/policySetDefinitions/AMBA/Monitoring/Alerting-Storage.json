@@ -11,7 +11,7 @@
       ],
       "category": "Monitoring",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.0.2"
+      "version": "1.1.0"
     },
     "parameters": {
       "ALZMonitorDisableTagName": {
@@ -53,7 +53,7 @@
       },
       "ALZMonitorResourceGroupTags": {
         "defaultValue": {
-          "_deployed_by_alz_monitor": true
+          "_deployed_by_amba": true
         },
         "metadata": {
           "description": "Tags for the resource group where the ALZ Monitor resources will be deployed",
@@ -158,8 +158,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -220,6 +218,8 @@
         "policyDefinitionReferenceId": "ALZ_activitySADelete",
         "policyDefinitionName": "Deploy_activitylog_StorageAccount_Delete"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
