@@ -51,8 +51,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -62,7 +60,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ADX-Sku-without-PL-Support",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1fec9658-933f-4b3e-bc95-913ed22d012b"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1fec9658-933f-4b3e-bc95-913ed22d012b",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -72,7 +71,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ADX-Double-Encryption",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ec068d99-e9c7-401f-8cef-5bdde4e6ccf1"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ec068d99-e9c7-401f-8cef-5bdde4e6ccf1",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -82,7 +82,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ADX-Encryption",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f4b53539-8df9-40e4-86c6-6b607703bd4e"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f4b53539-8df9-40e4-86c6-6b607703bd4e",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -92,8 +93,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ADX-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7b32f193-cb28-4e15-9a98-b9556db0bafa"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7b32f193-cb28-4e15-9a98-b9556db0bafa",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
