@@ -13,7 +13,7 @@
       "category": "Network",
       "replacesPolicy": "Deny-RDP-From-Internet",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "2.1.1"
+      "version": "2.2.0"
     },
     "mode": "All",
     "parameters": {
@@ -123,6 +123,10 @@
                         "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix"
                       },
                       {
+                        "equals": "0.0.0.0/0",
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix"
+                      },
+                      {
                         "not": {
                           "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefixes[*]",
                           "notEquals": "*"
@@ -132,6 +136,12 @@
                         "not": {
                           "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefixes[*]",
                           "notEquals": "Internet"
+                        }
+                      },
+                      {
+                        "not": {
+                          "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefixes[*]",
+                          "notEquals": "0.0.0.0/0"
                         }
                       }
                     ]
@@ -222,6 +232,10 @@
                             "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix"
                           },
                           {
+                            "equals": "0.0.0.0/0",
+                            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix"
+                          },
+                          {
                             "not": {
                               "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefixes[*]",
                               "notEquals": "*"
@@ -231,6 +245,12 @@
                             "not": {
                               "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefixes[*]",
                               "notEquals": "Internet"
+                            }
+                          },
+                          {
+                            "not": {
+                              "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefixes[*]",
+                              "notEquals": "0.0.0.0/0"
                             }
                           }
                         ]

@@ -33,8 +33,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -44,7 +42,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-MySql-Adv-Threat-Protection",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/80ed5239-4122-41ed-b54a-6f1fa7552816"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/80ed5239-4122-41ed-b54a-6f1fa7552816",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -54,8 +53,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-MySql-Infra-Encryption",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a58212a-c829-4f13-9872-6371df2fd0b4"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3a58212a-c829-4f13-9872-6371df2fd0b4",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
