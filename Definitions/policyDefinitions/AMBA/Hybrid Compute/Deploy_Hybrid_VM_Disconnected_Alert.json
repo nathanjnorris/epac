@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
   "name": "Deploy_Hybrid_VM_Disconnected_Alert",
   "properties": {
-    "description": "Policy to audit/deploy Hybrid VM Disconnected Alert",
-    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) - Hybrid VM Disconnected Alert",
+    "description": "Policy to audit/deploy Arc-enabled server Disconnected Alert",
+    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) - Arc-enabled server Disconnected Alert",
     "metadata": {
       "_deployed_by_amba": "True",
       "alzCloudEnvironments": [
@@ -11,7 +11,7 @@
       ],
       "category": "Hybrid Compute",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.7.2"
+      "version": "1.8.2"
     },
     "mode": "All",
     "parameters": {
@@ -197,8 +197,8 @@
         ],
         "defaultValue": "10m",
         "metadata": {
-          "description": "Threshold in timespan value for the Hybrid VM Disconnected alert",
-          "displayName": "Hybrid VM Disconnected Threshold (expressed in timespan)"
+          "description": "Threshold in timespan value for the Arc-enabled server Disconnected alert",
+          "displayName": "Arc-enabled server Disconnected Threshold (expressed in timespan)"
         },
         "type": "String"
       },
@@ -438,7 +438,7 @@
                                   }
                                 ]
                               },
-                              "description": "Hybrid VM in disconnected state. Not being connected, prevents extensions to be correctly managed from the portal and Azure policies to be correctly applied. Ensure that both server the specific service (Azure Hybrid Instance Metadata Service on Windows or azcmagent on Linux) are running.",
+                              "description": "AMBA-ALZ: Azure Arc-enabled servers in disconnected state. Not being connected, prevents extensions to be correctly managed from the portal and Azure policies to be correctly applied. Ensure that both server and the specific service (Azure Hybrid Instance Metadata Service on Windows or azcmagent on Linux) are running.",
                               "displayName": "[concat(subscription().displayName, '-HybridVMDisconnectedAlert')]",
                               "enabled": "[parameters('enabled')]",
                               "evaluationFrequency": "[parameters('evaluationFrequency')]",
@@ -576,7 +576,8 @@
           "existenceScope": "resourceGroup",
           "resourceGroupName": "[parameters('alertResourceGroupName')]",
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074",
+            "/providers/Microsoft.Authorization/roleDefinitions/f1a07417-d97a-45cb-824c-7a7467783830"
           ],
           "type": "Microsoft.Insights/scheduledQueryRules"
         },
