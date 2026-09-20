@@ -550,8 +550,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -792,6 +790,8 @@
         "policyDefinitionReferenceId": "ALZ_activityManagedHSMsDelete",
         "policyDefinitionName": "Deploy_ActivityLog_ManagedHSMs_Delete"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
