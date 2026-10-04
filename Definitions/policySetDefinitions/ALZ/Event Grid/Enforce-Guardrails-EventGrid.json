@@ -83,8 +83,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -94,7 +92,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EventGrid-Partner-Namespace-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2dd0e8b9-4289-4bb0-b813-1883298e9924"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2dd0e8b9-4289-4bb0-b813-1883298e9924",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -104,7 +103,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EventGrid-Domain-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ac2748f-3bf1-4c02-a3b6-92ae68cf75b1"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ac2748f-3bf1-4c02-a3b6-92ae68cf75b1",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -114,7 +114,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EventGrid-Topic-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae9fb87f-8a17-4428-94a4-8135d431055c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae9fb87f-8a17-4428-94a4-8135d431055c",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -124,7 +125,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EventGrid-Topic-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c8144d9-746a-4501-b08c-093c8d29ad04"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c8144d9-746a-4501-b08c-093c8d29ad04",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -134,7 +136,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EventGrid-Partner-Namespace-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8632b003-3545-4b29-85e6-b2b96773df1e"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8632b003-3545-4b29-85e6-b2b96773df1e",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -144,7 +147,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EventGrid-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8bfadddb-ee1c-4639-8911-a38cb8e0b3bd"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8bfadddb-ee1c-4639-8911-a38cb8e0b3bd",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -154,7 +158,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EventGrid-Domain-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/898e9824-104c-4965-8e0e-5197588fa5d4"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/898e9824-104c-4965-8e0e-5197588fa5d4",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -164,8 +169,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EventGrid-Topic-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36ea4b4b-0f7f-4a54-89fa-ab18f555a172"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36ea4b4b-0f7f-4a54-89fa-ab18f555a172",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
