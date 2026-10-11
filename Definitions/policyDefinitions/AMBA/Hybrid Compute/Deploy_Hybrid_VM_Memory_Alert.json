@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
   "name": "Deploy_Hybrid_VM_Memory_Alert",
   "properties": {
-    "description": "Policy to audit/deploy Hybrid VM Memory Alert",
-    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) - Hybrid VM Memory Alert",
+    "description": "Policy to audit/deploy Arc-enabled server Memory Alert",
+    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) - Arc-enabled server Memory Alert",
     "metadata": {
       "_deployed_by_amba": "True",
       "alzCloudEnvironments": [
@@ -11,7 +11,7 @@
       ],
       "category": "Hybrid Compute",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.5.2"
+      "version": "1.7.0"
     },
     "mode": "All",
     "parameters": {
@@ -448,14 +448,14 @@
                                       "numberOfEvaluationPeriods": "[parameters('evaluationPeriods')]"
                                     },
                                     "operator": "[parameters('operator')]",
-                                    "query": "[format('let policyThresholdString = \"{0}\"; let resourceTagging = (arg(\"\").resources | where type =~ \"Microsoft.HybridCompute/machines\" | where tags.[\"{1}\"] !in~ (\"{2}\") | project _ResourceId = tolower(id), resourceTags = tags); InsightsMetrics | where _ResourceId has \"Microsoft.HybridCompute/machines\" | where Origin == \"vm.azm.ms\" | where Namespace == \"Memory\" and Name == \"AvailableMB\" | extend TotalMemory = toreal(todynamic(Tags)[\"vm.azm.ms/memorySizeMB\"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0 | summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId | join hint.remote=left kind=inner (resourceTagging ) on _ResourceId | project-away _ResourceId1 | extend newThresholdString = tostring(resourceTags.[\"{3}\"]) | extend appliedThreshold = iif(isempty(newThresholdString), toint(policyThresholdString), toint(newThresholdString)) | where AggregatedValue < appliedThreshold | project TimeGenerated, Computer, _ResourceId, AggregatedValue, appliedThreshold', parameters('threshold'), parameters('MonitorDisableTagName'), join(parameters('MonitorDisableTagValues'), '\",\"'), '_amba-AvailableMemoryPercentage-threshold-Override_')]",
+                                    "query": "[format('let policyThresholdString = \"{0}\"; let resourceTagging = (arg(\"\").resources | where type =~ \"Microsoft.HybridCompute/machines\" | where tags.[\"{1}\"] !in~ (\"{2}\") | project _ResourceId = tolower(id), resourceTags = tags); InsightsMetrics | where _ResourceId has \"Microsoft.HybridCompute/machines\" | where Origin == \"vm.azm.ms\" | where Namespace == \"Memory\" and Name == \"AvailableMB\" | extend TotalMemory = toreal(todynamic(Tags)[\"vm.azm.ms/memorySizeMB\"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0 | summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId | lookup kind=inner (resourceTagging) on _ResourceId | extend newThresholdString = tostring(resourceTags.[\"{3}\"]) | extend appliedThreshold = iif(isempty(newThresholdString), toint(policyThresholdString), toint(newThresholdString)) | where AggregatedValue < appliedThreshold | project TimeGenerated, Computer, _ResourceId, AggregatedValue, appliedThreshold', parameters('threshold'), parameters('MonitorDisableTagName'), join(parameters('MonitorDisableTagValues'), '\",\"'), '_amba-AvailableMemoryPercentage-threshold-Override_')]",
                                     "resourceIdColumn": "_ResourceId",
                                     "threshold": 0,
                                     "timeAggregation": "[parameters('timeAggregation')]"
                                   }
                                 ]
                               },
-                              "description": "Log Alert for Virtual Machine Memory",
+                              "description": "AMBA-ALZ: Log Alert for Azure Arc-enabled server Memory",
                               "displayName": "[concat(subscription().displayName, '-HybridVMLowMemoryAlert')]",
                               "enabled": "[parameters('enabled')]",
                               "evaluationFrequency": "[parameters('evaluationFrequency')]",
@@ -591,7 +591,7 @@
                 "field": "Microsoft.Insights/scheduledQueryRules/criteria.allOf[*].failingPeriods.minFailingPeriodsToAlert"
               },
               {
-                "equals": "[format('let policyThresholdString = \"{0}\"; let resourceTagging = (arg(\"\").resources | where type =~ \"Microsoft.HybridCompute/machines\" | where tags.[\"{1}\"] !in~ (\"{2}\") | project _ResourceId = tolower(id), resourceTags = tags); InsightsMetrics | where _ResourceId has \"Microsoft.HybridCompute/machines\" | where Origin == \"vm.azm.ms\" | where Namespace == \"Memory\" and Name == \"AvailableMB\" | extend TotalMemory = toreal(todynamic(Tags)[\"vm.azm.ms/memorySizeMB\"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0 | summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId | join hint.remote=left kind=inner (resourceTagging ) on _ResourceId | project-away _ResourceId1 | extend newThresholdString = tostring(resourceTags.[\"{3}\"]) | extend appliedThreshold = iif(isempty(newThresholdString), toint(policyThresholdString), toint(newThresholdString)) | where AggregatedValue < appliedThreshold | project TimeGenerated, Computer, _ResourceId, AggregatedValue, appliedThreshold', parameters('threshold'), parameters('MonitorDisableTagName'), join(parameters('MonitorDisableTagValues'), '\",\"'), '_amba-AvailableMemoryPercentage-threshold-Override_')]",
+                "equals": "[format('let policyThresholdString = \"{0}\"; let resourceTagging = (arg(\"\").resources | where type =~ \"Microsoft.HybridCompute/machines\" | where tags.[\"{1}\"] !in~ (\"{2}\") | project _ResourceId = tolower(id), resourceTags = tags); InsightsMetrics | where _ResourceId has \"Microsoft.HybridCompute/machines\" | where Origin == \"vm.azm.ms\" | where Namespace == \"Memory\" and Name == \"AvailableMB\" | extend TotalMemory = toreal(todynamic(Tags)[\"vm.azm.ms/memorySizeMB\"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0 | summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId | lookup kind=inner (resourceTagging) on _ResourceId | extend newThresholdString = tostring(resourceTags.[\"{3}\"]) | extend appliedThreshold = iif(isempty(newThresholdString), toint(policyThresholdString), toint(newThresholdString)) | where AggregatedValue < appliedThreshold | project TimeGenerated, Computer, _ResourceId, AggregatedValue, appliedThreshold', parameters('threshold'), parameters('MonitorDisableTagName'), join(parameters('MonitorDisableTagValues'), '\",\"'), '_amba-AvailableMemoryPercentage-threshold-Override_')]",
                 "field": "Microsoft.Insights/scheduledQueryRules/criteria.allOf[*].query"
               },
               {
@@ -603,7 +603,8 @@
           "existenceScope": "resourceGroup",
           "resourceGroupName": "[parameters('alertResourceGroupName')]",
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074",
+            "/providers/Microsoft.Authorization/roleDefinitions/f1a07417-d97a-45cb-824c-7a7467783830"
           ],
           "type": "Microsoft.Insights/scheduledQueryRules"
         },
