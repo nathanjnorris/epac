@@ -62,8 +62,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -97,6 +95,8 @@
         "policyDefinitionReferenceId": "ALZ_RVASRHealthMonitor",
         "policyDefinitionName": "Deploy_RecoveryVault_ASRHealthMonitor_Alert"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
