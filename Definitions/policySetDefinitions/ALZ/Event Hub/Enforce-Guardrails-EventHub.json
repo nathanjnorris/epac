@@ -51,8 +51,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -62,7 +60,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-Double-Encryption",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/836cd60e-87f3-4e6a-a27c-29d687f01a4c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/836cd60e-87f3-4e6a-a27c-29d687f01a4c",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -72,7 +71,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-EH-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/57f35901-8389-40bb-ac49-3ba4f86d889d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/57f35901-8389-40bb-ac49-3ba4f86d889d",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -82,7 +82,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5d4e3c65-4873-47be-94f3-6f8b953a3598"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5d4e3c65-4873-47be-94f3-6f8b953a3598",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -92,8 +93,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-Auth-Rules",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b278e460-7cfc-4451-8294-cccc40a940d7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b278e460-7cfc-4451-8294-cccc40a940d7",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
