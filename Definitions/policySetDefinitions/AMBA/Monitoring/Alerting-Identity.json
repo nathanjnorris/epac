@@ -11,7 +11,7 @@
       ],
       "category": "Monitoring",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.1.2"
+      "version": "1.2.0"
     },
     "parameters": {
       "ALZMonitorDisableTagName": {
@@ -53,7 +53,7 @@
       },
       "ALZMonitorResourceGroupTags": {
         "defaultValue": {
-          "_deployed_by_alz_monitor": true
+          "_deployed_by_amba": true
         },
         "metadata": {
           "description": "Tags for the resource group where the alerting resources will be deployed",
@@ -550,8 +550,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -792,6 +790,8 @@
         "policyDefinitionReferenceId": "ALZ_activityManagedHSMsDelete",
         "policyDefinitionName": "Deploy_ActivityLog_ManagedHSMs_Delete"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

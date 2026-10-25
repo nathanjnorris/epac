@@ -514,8 +514,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -525,7 +523,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AppServiceHttpEffect",
-        "policyDefinitionName": "Append-AppService-httpsonly"
+        "policyDefinitionName": "Append-AppService-httpsonly",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -538,7 +537,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AppServiceminTlsVersion",
-        "policyDefinitionName": "Append-AppService-latestTLS"
+        "policyDefinitionName": "Append-AppService-latestTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -548,7 +548,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "FunctionLatestTlsEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f9d614c5-c173-4d56-95a7-b4437057d193"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f9d614c5-c173-4d56-95a7-b4437057d193",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -558,7 +559,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "WebAppServiceLatestTlsEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0e6e85b-9b9f-4a4b-b67b-f730d42f1b0b"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0e6e85b-9b9f-4a4b-b67b-f730d42f1b0b",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -568,7 +570,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "APIAppServiceHttpsEffect",
-        "policyDefinitionName": "Deny-AppServiceApiApp-http"
+        "policyDefinitionName": "Deny-AppServiceApiApp-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -578,7 +581,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "FunctionServiceHttpsEffect",
-        "policyDefinitionName": "Deny-AppServiceFunctionApp-http"
+        "policyDefinitionName": "Deny-AppServiceFunctionApp-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -588,7 +592,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "WebAppServiceHttpsEffect",
-        "policyDefinitionName": "Deny-AppServiceWebApp-http"
+        "policyDefinitionName": "Deny-AppServiceWebApp-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -598,7 +603,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AKSIngressHttpsOnlyEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d",
+        "definitionVersion": "8.*.*"
       },
       {
         "parameters": {
@@ -611,7 +617,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "MySQLEnableSSLDeployEffect",
-        "policyDefinitionName": "Deploy-MySQL-sslEnforcement"
+        "policyDefinitionName": "Deploy-MySQL-sslEnforcement",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -624,7 +631,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "MySQLEnableSSLEffect",
-        "policyDefinitionName": "Deny-MySql-http"
+        "policyDefinitionName": "Deny-MySql-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -637,7 +645,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "PostgreSQLEnableSSLDeployEffect",
-        "policyDefinitionName": "Deploy-PostgreSQL-sslEnforcement"
+        "policyDefinitionName": "Deploy-PostgreSQL-sslEnforcement",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -650,7 +659,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "PostgreSQLEnableSSLEffect",
-        "policyDefinitionName": "Deny-PostgreSql-http"
+        "policyDefinitionName": "Deny-PostgreSql-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -663,7 +673,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "RedisTLSDeployEffect",
-        "policyDefinitionName": "Append-Redis-sslEnforcement"
+        "policyDefinitionName": "Append-Redis-sslEnforcement",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -673,7 +684,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "RedisdisableNonSslPort",
-        "policyDefinitionName": "Append-Redis-disableNonSslPort"
+        "policyDefinitionName": "Append-Redis-disableNonSslPort",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -686,7 +698,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "RedisDenyhttps",
-        "policyDefinitionName": "Deny-Redis-http"
+        "policyDefinitionName": "Deny-Redis-http",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -699,7 +712,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SQLManagedInstanceTLSDeployEffect",
-        "policyDefinitionName": "Deploy-SqlMi-minTLS"
+        "policyDefinitionName": "Deploy-SqlMi-minTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -712,7 +726,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SQLManagedInstanceTLSEffect",
-        "policyDefinitionName": "Deny-SqlMi-minTLS"
+        "policyDefinitionName": "Deny-SqlMi-minTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -725,7 +740,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SQLServerTLSDeployEffect",
-        "policyDefinitionName": "Deploy-SQL-minTLS"
+        "policyDefinitionName": "Deploy-SQL-minTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -738,7 +754,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SQLServerTLSEffect",
-        "policyDefinitionName": "Deny-Sql-minTLS"
+        "policyDefinitionName": "Deny-Sql-minTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -751,7 +768,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "StorageDeployHttpsEnabledEffect",
-        "policyDefinitionName": "Deploy-Storage-sslEnforcement"
+        "policyDefinitionName": "Deploy-Storage-sslEnforcement",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -761,7 +779,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "ContainerAppsHttpsOnlyEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e80e269-43a4-4ae9-b5bc-178126b8a5cb"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e80e269-43a4-4ae9-b5bc-178126b8a5cb",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -771,7 +790,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-FunctionApp-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f01f1c7-539c-49b5-9ef4-d4ffa37d22e0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f01f1c7-539c-49b5-9ef4-d4ffa37d22e0",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -781,7 +801,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deploy-LogicApp-TLS",
-        "policyDefinitionName": "Deploy-LogicApp-TLS"
+        "policyDefinitionName": "Deploy-LogicApp-TLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -791,7 +812,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-LogicApp-Without-Https",
-        "policyDefinitionName": "Deny-LogicApps-Without-Https"
+        "policyDefinitionName": "Deny-LogicApps-Without-Https",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -801,7 +823,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-Function-Apps-Slots-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fa3a6357-c6d6-4120-8429-855577ec0063"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fa3a6357-c6d6-4120-8429-855577ec0063",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -811,7 +834,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-AppService-Apps-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae44c1d1-0df2-4ca9-98fa-a3d3ae5b409d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae44c1d1-0df2-4ca9-98fa-a3d3ae5b409d",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -821,7 +845,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-AppService-Apps-Https",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a4af4a39-4135-47fb-b175-47fbdf85311d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a4af4a39-4135-47fb-b175-47fbdf85311d",
+        "definitionVersion": "4.*.*"
       },
       {
         "parameters": {
@@ -831,7 +856,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-AppService-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d6545c6b-dd9d-4265-91e6-0b451e2f1c50"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d6545c6b-dd9d-4265-91e6-0b451e2f1c50",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -841,7 +867,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "DINE-AppService-AppSlotTls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/014664e7-e348-41a3-aeb9-566e4ff6a9df"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/014664e7-e348-41a3-aeb9-566e4ff6a9df",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -851,7 +878,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-FuncAppSlots-Https",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5e5dbe3f-2702-4ffc-8b1e-0cae008a5c71"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5e5dbe3f-2702-4ffc-8b1e-0cae008a5c71",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -861,7 +889,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-FunctionApp-Https",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6d555dd1-86f2-4f1c-8ed7-5abae7c6cbab"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6d555dd1-86f2-4f1c-8ed7-5abae7c6cbab",
+        "definitionVersion": "5.*.*"
       },
       {
         "parameters": {
@@ -871,7 +900,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-AppService-Slots-Https",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae1b9a8c-dfce-4605-bd91-69213b4a26fc"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ae1b9a8c-dfce-4605-bd91-69213b4a26fc",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -881,7 +911,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerApps-Https",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e80e269-43a4-4ae9-b5bc-178126b8a5cb"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0e80e269-43a4-4ae9-b5bc-178126b8a5cb",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -891,7 +922,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-minTLS",
-        "policyDefinitionName": "Deny-EH-minTLS"
+        "policyDefinitionName": "Deny-EH-minTLS",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -901,7 +933,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Sql-Managed-Tls-Version",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a8793640-60f7-487c-b5c3-1d37215905c4"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a8793640-60f7-487c-b5c3-1d37215905c4",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -911,7 +944,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Sql-Db-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/32e6bbec-16b6-44c2-be37-c5b672d103cf"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/32e6bbec-16b6-44c2-be37-c5b672d103cf",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -921,7 +955,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Storage-Tls",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe83a0eb-a853-422d-aac2-1bffd182c5d0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe83a0eb-a853-422d-aac2-1bffd182c5d0",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -931,8 +966,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Synapse-Tls-Version",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cb3738a6-82a2-4a18-b87b-15217b9deff4"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cb3738a6-82a2-4a18-b87b-15217b9deff4",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
