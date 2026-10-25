@@ -52,8 +52,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -63,7 +61,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditDisksUnusedResourcesCostOptimization",
-        "policyDefinitionName": "Audit-Disks-UnusedResourcesCostOptimization"
+        "policyDefinitionName": "Audit-Disks-UnusedResourcesCostOptimization",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -73,7 +72,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditPublicIpAddressesUnusedResourcesCostOptimization",
-        "policyDefinitionName": "Audit-PublicIpAddresses-UnusedResourcesCostOptimization"
+        "policyDefinitionName": "Audit-PublicIpAddresses-UnusedResourcesCostOptimization",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -83,7 +83,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditServerFarmsUnusedResourcesCostOptimization",
-        "policyDefinitionName": "Audit-ServerFarms-UnusedResourcesCostOptimization"
+        "policyDefinitionName": "Audit-ServerFarms-UnusedResourcesCostOptimization",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -93,8 +94,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditAzureHybridBenefitUnusedResourcesCostOptimization",
-        "policyDefinitionName": "Audit-AzureHybridBenefit"
+        "policyDefinitionName": "Audit-AzureHybridBenefit",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

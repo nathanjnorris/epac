@@ -132,8 +132,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -143,7 +141,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Outdated-Os",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f110a506-2dcb-422e-bcea-d533fc8c35e2"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f110a506-2dcb-422e-bcea-d533fc8c35e2",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -153,7 +152,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e96a9a5f-07ca-471b-9bc5-6a0f33cbd68f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e96a9a5f-07ca-471b-9bc5-6a0f33cbd68f",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -163,7 +163,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ML-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6f9a2d0-cff7-4855-83ad-4cd750666512"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6f9a2d0-cff7-4855-83ad-4cd750666512",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -173,7 +174,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-User-Assigned-Identity",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5f0c7d88-c7de-45b8-ac49-db49e72eaa78"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5f0c7d88-c7de-45b8-ac49-db49e72eaa78",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -183,7 +185,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ML-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a10ee784-7409-4941-b091-663697637c0f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a10ee784-7409-4941-b091-663697637c0f",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -193,7 +196,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Idle-Shutdown",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/679ddf89-ab8f-48a5-9029-e76054077449"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/679ddf89-ab8f-48a5-9029-e76054077449",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -203,7 +207,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Audit-ML-Virtual-Network",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7804b5c7-01dc-4723-969b-ae300cc07ff1"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7804b5c7-01dc-4723-969b-ae300cc07ff1",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -213,7 +218,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Legacy-Mode",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e413671a-dd10-4cc1-a943-45b598596cb7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e413671a-dd10-4cc1-a943-45b598596cb7",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -223,7 +229,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Audit-ML-Private-Link",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/45e05259-1eb5-4f70-9574-baf73e9d219b"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/45e05259-1eb5-4f70-9574-baf73e9d219b",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -233,7 +240,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Aine-ML-Resource-Logs",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/afe0c3be-ba3b-4544-ba52-0c99672a8ad6"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/afe0c3be-ba3b-4544-ba52-0c99672a8ad6",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -243,7 +251,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Allowed-Registry-Deploy",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/19539b54-c61e-4196-9a38-67598701be90"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/19539b54-c61e-4196-9a38-67598701be90",
+        "definitionVersion": "1.*.*-preview"
       },
       {
         "parameters": {
@@ -253,7 +262,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Allowed-Module",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/53c70b02-63dd-11ea-bc55-0242ac130003"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/53c70b02-63dd-11ea-bc55-0242ac130003",
+        "definitionVersion": "6.*.*-preview"
       },
       {
         "parameters": {
@@ -263,7 +273,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Allowed-Python",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/77eeea86-7e81-4a7d-9067-de844d096752"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/77eeea86-7e81-4a7d-9067-de844d096752",
+        "definitionVersion": "5.*.*-preview"
       },
       {
         "parameters": {
@@ -273,8 +284,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ML-Allowed-Registries",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5853517a-63de-11ea-bc55-0242ac130003"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5853517a-63de-11ea-bc55-0242ac130003",
+        "definitionVersion": "6.*.*-preview"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

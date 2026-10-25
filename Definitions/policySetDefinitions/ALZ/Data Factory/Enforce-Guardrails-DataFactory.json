@@ -60,8 +60,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -71,7 +69,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Adf-Managed-Identity",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f78ccdb4-7bf4-4106-8647-270491d2978a"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f78ccdb4-7bf4-4106-8647-270491d2978a",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -81,7 +80,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Adf-Git",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/77d40665-3120-4348-b539-3192ec808307"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/77d40665-3120-4348-b539-3192ec808307",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -91,7 +91,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Adf-Linked-Service-Key-Vault",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/127ef6d7-242f-43b3-9eef-947faf1725d0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/127ef6d7-242f-43b3-9eef-947faf1725d0",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -101,7 +102,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Adf-Sql-Integration",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0088bc63-6dee-4a9c-9d29-91cfdc848952"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0088bc63-6dee-4a9c-9d29-91cfdc848952",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -111,8 +113,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Adf-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/08b1442b-7789-4130-8506-4f99a97226a7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/08b1442b-7789-4130-8506-4f99a97226a7",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

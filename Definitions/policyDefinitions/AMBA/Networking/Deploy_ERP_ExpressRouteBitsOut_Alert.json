@@ -8,7 +8,7 @@
       "_deployed_by_amba": "True",
       "category": "Networking",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
-      "version": "1.2.2"
+      "version": "1.4.1"
     },
     "mode": "All",
     "parameters": {
@@ -164,7 +164,7 @@
                   "value": "[parameters('severity')]"
                 },
                 "threshold": {
-                  "value": "[if(contains(field('tags'), '_amba-PortBitsOutPerSecond-threshold-Override_'), field('tags._amba-PortBitsOutPerSecond-threshold-Override_'), parameters('threshold'))]"
+                  "value": "[if(contains(coalesce(field('tags'), createObject()), '_amba-PortBitsOutPerSecond-threshold-Override_'), field('tags._amba-PortBitsOutPerSecond-threshold-Override_'), parameters('threshold'))]"
                 },
                 "windowSize": {
                   "value": "[parameters('windowSize')]"
@@ -228,7 +228,7 @@
                         ],
                         "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
                       },
-                      "description": "Metric Alert for ER Direct Connection BitsOutPerSecond",
+                      "description": "AMBA-ALZ: Metric Alert for ER Direct Connection BitsOutPerSecond",
                       "enabled": "[parameters('enabled')]",
                       "evaluationFrequency": "[parameters('evaluationFrequency')]",
                       "parameters": {
@@ -310,13 +310,13 @@
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].StaticThresholdCriterion.operator"
               },
               {
-                "equals": "[if(contains(field('tags'), '_amba-PortBitsOutPerSecond-threshold-Override_'), field('tags._amba-PortBitsOutPerSecond-threshold-Override_'), parameters('threshold'))]",
+                "equals": "[if(contains(coalesce(field('tags'), createObject()), '_amba-PortBitsOutPerSecond-threshold-Override_'), field('tags._amba-PortBitsOutPerSecond-threshold-Override_'), parameters('threshold'))]",
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].StaticThresholdCriterion.threshold"
               }
             ]
           },
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074"
           ],
           "type": "Microsoft.Insights/metricAlerts"
         },
