@@ -28,8 +28,6 @@
         "type": "String"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -39,7 +37,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditDisksOsTrustedLaunch",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b03bb370-5249-4ea4-9fce-2552e87e45fa"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b03bb370-5249-4ea4-9fce-2552e87e45fa",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -49,8 +48,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AuditTrustedLaunchEnabled",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c95b54ad-0614-4633-ab29-104b01235cbf"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c95b54ad-0614-4633-ab29-104b01235cbf",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

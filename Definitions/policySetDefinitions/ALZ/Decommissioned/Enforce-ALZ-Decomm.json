@@ -25,8 +25,6 @@
         "type": "Array"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -36,14 +34,18 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "DecomDenyResources",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a08ec900-254a-4555-9bf5-e42af04b5c5c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a08ec900-254a-4555-9bf5-e42af04b5c5c",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {},
         "groupNames": [],
         "policyDefinitionReferenceId": "DecomShutdownMachines",
-        "policyDefinitionName": "Deploy-Vm-autoShutdown"
+        "policyDefinitionName": "Deploy-Vm-autoShutdown",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
