@@ -51,8 +51,6 @@
         "type": "Array"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -65,7 +63,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SandboxNotAllowed",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -75,8 +74,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SandboxDenyVnetPeering",
-        "policyDefinitionName": "Deny-VNET-Peer-Cross-Sub"
+        "policyDefinitionName": "Deny-VNET-Peer-Cross-Sub",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
