@@ -25,8 +25,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -36,8 +34,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerInstance-Vnet",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8af8f826-edcb-4178-b35f-851ea6fea615"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8af8f826-edcb-4178-b35f-851ea6fea615",
+        "definitionVersion": "2.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

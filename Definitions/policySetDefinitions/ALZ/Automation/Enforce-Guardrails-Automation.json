@@ -67,8 +67,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -78,7 +76,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Windows-Vm-HotPatch",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6d02d2f7-e38b-4bdc-96f3-adc0a8726abc"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6d02d2f7-e38b-4bdc-96f3-adc0a8726abc",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -88,7 +87,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aa-Managed-Identity",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dea83a72-443c-4292-83d5-54a2f98749c0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dea83a72-443c-4292-83d5-54a2f98749c0",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -98,7 +98,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aa-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/48c5f1cb-14ad-4797-8e3b-f78ab3f8d700"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/48c5f1cb-14ad-4797-8e3b-f78ab3f8d700",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -108,7 +109,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aa-Variables-Encrypt",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3657f5a0-770e-44a3-b44e-9431ba1e9735"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3657f5a0-770e-44a3-b44e-9431ba1e9735",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -118,7 +120,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Aa-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/30d1d58e-8f96-47a5-8564-499a3f3cca81"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/30d1d58e-8f96-47a5-8564-499a3f3cca81",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -128,8 +131,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-Aa-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/23b36a7c-9d26-4288-a8fd-c1d2fa284d8c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/23b36a7c-9d26-4288-a8fd-c1d2fa284d8c",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
