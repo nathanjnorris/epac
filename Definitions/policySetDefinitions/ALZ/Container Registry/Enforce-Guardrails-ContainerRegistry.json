@@ -119,8 +119,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -130,7 +128,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ContainerRegistry-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/79fdfe03-ffcb-4e55-b4d0-b925b8241759"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/79fdfe03-ffcb-4e55-b4d0-b925b8241759",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -140,7 +139,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ContainerRegistry-Repo-Token",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a9b426fe-8856-4945-8600-18c5dd1cca2a"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a9b426fe-8856-4945-8600-18c5dd1cca2a",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -150,7 +150,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Arm-Audience",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42781ec6-6127-4c30-bdfa-fb423a0047d3"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/42781ec6-6127-4c30-bdfa-fb423a0047d3",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -160,7 +161,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ContainerRegistry-Arm-Audience",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/785596ed-054f-41bc-aaec-7f3d0ba05725"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/785596ed-054f-41bc-aaec-7f3d0ba05725",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -170,7 +172,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Sku-PrivateLink",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bd560fc0-3c69-498a-ae9f-aa8eb7de0e13"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bd560fc0-3c69-498a-ae9f-aa8eb7de0e13",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -180,7 +183,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ContainerRegistry-Anonymous-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cced2946-b08a-44fe-9fd9-e4ed8a779897"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/cced2946-b08a-44fe-9fd9-e4ed8a779897",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -190,7 +194,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Anonymous-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9f2dea28-e834-476c-99c5-3507b4728395"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9f2dea28-e834-476c-99c5-3507b4728395",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -200,7 +205,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Exports",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/524b0254-c285-4903-bee6-bb8126cde579"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/524b0254-c285-4903-bee6-bb8126cde579",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -210,7 +216,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dc921057-6b28-4fbe-9b83-f7bec05db6c2"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dc921057-6b28-4fbe-9b83-f7bec05db6c2",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -220,7 +227,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Repo-Token",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ff05e24e-195c-447e-b322-5e90c9f9f366"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ff05e24e-195c-447e-b322-5e90c9f9f366",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -230,7 +238,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerRegistry-Unrestricted-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d0793b48-0edc-4296-a390-4c75d1bdfd71"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d0793b48-0edc-4296-a390-4c75d1bdfd71",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -240,8 +249,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Modify-ContainerRegistry-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a3701552-92ea-433e-9d17-33b7f1208fc9"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a3701552-92ea-433e-9d17-33b7f1208fc9",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

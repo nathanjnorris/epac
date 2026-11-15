@@ -34,8 +34,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -45,7 +43,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerApp-Vnet-Injection",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8b346db6-85af-419b-8557-92cee2c0f9bb"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8b346db6-85af-419b-8557-92cee2c0f9bb",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -55,8 +54,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerApps-Managed-Identity",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b874ab2d-72dd-47f1-8cb5-4a306478a4e7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b874ab2d-72dd-47f1-8cb5-4a306478a4e7",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
