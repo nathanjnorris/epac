@@ -11,7 +11,7 @@
       "category": "Encryption",
       "replacesPolicy": "Enforce-Encryption-CMK",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "parameters": {
       "ACRCmkEffect": {
@@ -340,8 +340,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -351,7 +349,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "ACRCmkDeny",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -361,7 +360,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AksCmkDeny",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7d7be79c-23ba-4033-84dd-45e2a5ccdd67"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7d7be79c-23ba-4033-84dd-45e2a5ccdd67",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -371,7 +371,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "WorkspaceCMK",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ba769a63-b8cc-4b2d-abf6-ac33c7204be8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ba769a63-b8cc-4b2d-abf6-ac33c7204be8",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -381,7 +382,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "CognitiveServicesCMK",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/67121cc7-ff39-4ab8-b7e3-95b84dab487d"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/67121cc7-ff39-4ab8-b7e3-95b84dab487d",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -391,7 +393,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "CosmosCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f905d99-2ab7-462c-a6b0-f709acca6c8f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f905d99-2ab7-462c-a6b0-f709acca6c8f",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -401,7 +404,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "DataBoxCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86efb160-8de7-451d-bc08-5d475b0aadae"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86efb160-8de7-451d-bc08-5d475b0aadae",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -411,7 +415,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "StreamAnalyticsCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/87ba29ef-1ab3-4d82-b763-87fcd4f531f7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/87ba29ef-1ab3-4d82-b763-87fcd4f531f7",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -421,7 +426,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SynapseWorkspaceCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f7d52b2d-e161-4dfa-a82b-55e564167385"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f7d52b2d-e161-4dfa-a82b-55e564167385",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -431,7 +437,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "StorageCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6fac406b-40ca-413b-bf8e-0bf964659c25"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6fac406b-40ca-413b-bf8e-0bf964659c25",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -441,7 +448,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "MySQLCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/83cef61d-dbd1-4b20-a4fc-5fbc7da10833"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/83cef61d-dbd1-4b20-a4fc-5fbc7da10833",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -451,7 +459,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "PostgreSQLCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/18adea5e-f416-4d0f-8aa8-d24321e3e274"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/18adea5e-f416-4d0f-8aa8-d24321e3e274",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -461,7 +470,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "SqlServerTDECMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0a370ff3-6cab-4e85-8995-295fd854c5b8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0a370ff3-6cab-4e85-8995-295fd854c5b8",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -471,7 +481,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "HealthcareAPIsCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/051cba44-2429-45b9-9649-46cec11c7119"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/051cba44-2429-45b9-9649-46cec11c7119",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -481,7 +492,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "AzureBatchCMKEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/99e9ccd8-3db9-4592-b0d1-14b1715a4d8a"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/99e9ccd8-3db9-4592-b0d1-14b1715a4d8a",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -490,8 +502,20 @@
           }
         },
         "groupNames": [],
-        "policyDefinitionReferenceId": "EncryptedVMDisksEffect",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0961003e-5a0a-4549-abde-af6a37f2724d"
+        "policyDefinitionReferenceId": "EncryptedVMDisksEffectWin",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3dc5edcd-002d-444c-b216-e123bbfa37c0",
+        "definitionVersion": "1.*.*"
+      },
+      {
+        "parameters": {
+          "effect": {
+            "value": "[parameters('EncryptedVMDisksEffect')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "EncryptedVMDisksEffectLin",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ca88aadc-6e2b-416c-9de2-5a0f01d1693f",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -501,7 +525,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aa-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56a5ee18-2ae6-4810-86f7-18e39ce5629b"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/56a5ee18-2ae6-4810-86f7-18e39ce5629b",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -511,7 +536,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Backup-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2e94d99a-8a36-4563-bc77-810d8893b671"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2e94d99a-8a36-4563-bc77-810d8893b671",
+        "definitionVersion": "1.*.*-preview"
       },
       {
         "parameters": {
@@ -521,7 +547,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-CognitiveSearch-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/76a56461-9dc0-40f0-82f5-2453283afa2f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/76a56461-9dc0-40f0-82f5-2453283afa2f",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -531,7 +558,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-OsAndDataDisk-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/702dd420-7fcc-42c5-afe8-4026edd20fe0"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/702dd420-7fcc-42c5-afe8-4026edd20fe0",
+        "definitionVersion": "3.*.*"
       },
       {
         "parameters": {
@@ -541,7 +569,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ContainerInstance-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0aa61e00-0a01-4a3c-9945-e93cffedf0e6"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0aa61e00-0a01-4a3c-9945-e93cffedf0e6",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -551,7 +580,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-ADX-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/81e74cea-30fd-40d5-802f-d72103c2aaaa"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/81e74cea-30fd-40d5-802f-d72103c2aaaa",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -561,7 +591,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Adf-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4ec52d6d-beb7-40c4-9a9e-fe753254690e"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4ec52d6d-beb7-40c4-9a9e-fe753254690e",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -571,7 +602,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a1ad735a-e96f-45d2-a7b2-9a4932cab7ec"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a1ad735a-e96f-45d2-a7b2-9a4932cab7ec",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -581,7 +613,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-EH-Premium-CMK",
-        "policyDefinitionName": "Deny-EH-Premium-CMK"
+        "policyDefinitionName": "Deny-EH-Premium-CMK",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -591,7 +624,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Sb-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/295fc8b1-dc9f-4f53-9c61-3f313ceab40a"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/295fc8b1-dc9f-4f53-9c61-3f313ceab40a",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -601,7 +635,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Sql-Managed-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac01ad65-10e5-46df-bdd9-6b0cad13e1d2"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ac01ad65-10e5-46df-bdd9-6b0cad13e1d2",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -611,7 +646,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Storage-Table-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7c322315-e26d-4174-a99e-f49d351b4688"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7c322315-e26d-4174-a99e-f49d351b4688",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -621,7 +657,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Storage-Encryption-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b5ec538c-daa0-4006-8596-35468b9148e8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b5ec538c-daa0-4006-8596-35468b9148e8",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -631,7 +668,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Storage-Queue-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0e5abd0-2554-4736-b7c0-4ffef23475ef"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/f0e5abd0-2554-4736-b7c0-4ffef23475ef",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -641,8 +679,11 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-BotService-Cmk",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/51522a96-0869-4791-82f3-981000c2c67f"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/51522a96-0869-4791-82f3-981000c2c67f",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
