@@ -15,21 +15,23 @@
       "version": "1.1.0"
     },
     "parameters": {},
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {},
         "groupNames": [],
         "policyDefinitionReferenceId": "DenyActionDelete-DiagnosticSettings",
-        "policyDefinitionName": "DenyAction-DiagnosticLogs"
+        "policyDefinitionName": "DenyAction-DiagnosticLogs",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {},
         "groupNames": [],
         "policyDefinitionReferenceId": "DenyActionDelete-ActivityLogSettings",
-        "policyDefinitionName": "DenyAction-ActivityLogs"
+        "policyDefinitionName": "DenyAction-ActivityLogs",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }

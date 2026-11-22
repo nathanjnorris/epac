@@ -12,7 +12,7 @@
       ],
       "category": "Kubernetes",
       "source": "https://github.com/Azure/Enterprise-Scale/",
-      "version": "1.2.0"
+      "version": "2.0.0"
     },
     "parameters": {
       "aksAllowedCapabilities": {
@@ -70,6 +70,15 @@
       "aksKms": {
         "allowedValues": [
           "Audit",
+          "Disabled"
+        ],
+        "defaultValue": "Audit",
+        "type": "string"
+      },
+      "aksKubenetEffect": {
+        "allowedValues": [
+          "Audit",
+          "Deny",
           "Disabled"
         ],
         "defaultValue": "Audit",
@@ -174,8 +183,6 @@
         "type": "string"
       }
     },
-    "policyType": "Custom",
-    "policyDefinitionGroups": null,
     "policyDefinitions": [
       {
         "parameters": {
@@ -185,7 +192,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Windows-Container-Administrator",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5485eac0-7e8f-4964-998b-a44f4f0c1e75"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/5485eac0-7e8f-4964-998b-a44f4f0c1e75",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -195,7 +203,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Shared-Host-Process-Namespace",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/47a1ee2f-2a2a-4576-bf2a-e0e36709c2b8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/47a1ee2f-2a2a-4576-bf2a-e0e36709c2b8",
+        "definitionVersion": "5.*.*"
       },
       {
         "parameters": {
@@ -205,7 +214,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Naked-Pods",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/65280eef-c8b4-425e-9aec-af55e55bf581"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/65280eef-c8b4-425e-9aec-af55e55bf581",
+        "definitionVersion": "2.*.*"
       },
       {
         "parameters": {
@@ -215,7 +225,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Default-Namespace",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9f061a12-e40d-4183-a00e-171812443373"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/9f061a12-e40d-4183-a00e-171812443373",
+        "definitionVersion": "4.*.*"
       },
       {
         "parameters": {
@@ -225,7 +236,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Internal-Lb",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e",
+        "definitionVersion": "8.*.*"
       },
       {
         "parameters": {
@@ -235,7 +247,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Temp-Disk-Encryption",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/41425d9f-d1a5-499a-9932-f8ed8453932c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/41425d9f-d1a5-499a-9932-f8ed8453932c",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -245,7 +258,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Allowed-Capabilities",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c26596ff-4d70-4e6a-9a30-c2506bd2f80c"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c26596ff-4d70-4e6a-9a30-c2506bd2f80c",
+        "definitionVersion": "6.*.*"
       },
       {
         "parameters": {
@@ -255,7 +269,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Priv-Escalation",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c6e92c9-99f0-4e55-9cf2-0c234dc48f99"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c6e92c9-99f0-4e55-9cf2-0c234dc48f99",
+        "definitionVersion": "7.*.*"
       },
       {
         "parameters": {
@@ -265,7 +280,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Priv-Containers",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/95edb821-ddaf-4404-9732-666045e056b4"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/95edb821-ddaf-4404-9732-666045e056b4",
+        "definitionVersion": "9.*.*"
       },
       {
         "parameters": {
@@ -275,7 +291,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-ReadinessOrLiveness-Probes",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b1a9997f-2883-4f12-bdff-2280f99b5915"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b1a9997f-2883-4f12-bdff-2280f99b5915",
+        "definitionVersion": "3.*.*"
       },
       {
         "parameters": {
@@ -285,7 +302,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-Aks-Command-Invoke",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1b708b0a-3380-40e9-8b79-821f9fa224cc"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1b708b0a-3380-40e9-8b79-821f9fa224cc",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -295,7 +313,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Dine-Aks-Policy",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a8eff44f-8c92-45c3-a3fb-9880802d67a7"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a8eff44f-8c92-45c3-a3fb-9880802d67a7",
+        "definitionVersion": "4.*.*"
       },
       {
         "parameters": {
@@ -305,7 +324,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Private-Cluster",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/040732e8-d947-40b8-95d6-854c95024bf8"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/040732e8-d947-40b8-95d6-854c95024bf8",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -315,7 +335,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Local-Auth",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/993c2fcd-2b29-49d2-9eb0-df2c3a730c32"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/993c2fcd-2b29-49d2-9eb0-df2c3a730c32",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -325,7 +346,8 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Kms",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dbbdc317-9734-4dd8-9074-993b29c69008"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/dbbdc317-9734-4dd8-9074-993b29c69008",
+        "definitionVersion": "1.*.*"
       },
       {
         "parameters": {
@@ -335,8 +357,22 @@
         },
         "groupNames": [],
         "policyDefinitionReferenceId": "Deny-Aks-Cni",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/46238e2f-3f6f-4589-9f3f-77bed4116e67"
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/46238e2f-3f6f-4589-9f3f-77bed4116e67",
+        "definitionVersion": "1.*.*"
+      },
+      {
+        "parameters": {
+          "effect": {
+            "value": "[parameters('aksKubenetEffect')]"
+          }
+        },
+        "groupNames": [],
+        "policyDefinitionReferenceId": "Audit-AKS-Kubenet",
+        "policyDefinitionName": "Audit-AKS-kubenet",
+        "definitionVersion": "1.*.*"
       }
-    ]
+    ],
+    "policyType": "Custom",
+    "policyDefinitionGroups": null
   }
 }
